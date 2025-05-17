@@ -1,0 +1,101 @@
+.animatedSection {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.animateIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animatedSection::before,
+.animatedSection::after {
+  content: "";
+  position: absolute;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  animation: rotateShape 10s linear infinite;
+  opacity: 0.5;
+}
+
+.animatedSection::before {
+  width: 150px;
+  height: 150px;
+  top: -50px;
+  left: -50px;
+}
+
+.animatedSection::after {
+  width: 200px;
+  height: 200px;
+  bottom: -70px;
+  right: -70px;
+  animation-duration: 15s;
+}
+
+@keyframes rotateShape {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(360deg) scale(1.1);
+  }
+}
+
+/* Main container styles */
+.showcaseBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 40px;
+  align-items: center;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  margin: 40px;
+  max-width: 100%;
+}
+
+/* Row layout */
+.showcaseRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Component card styling */
+.showcaseRow > * {
+  flex: 1 1 calc(50% - 40px);
+  min-width: 300px;
+  background: #2e2e2e;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .showcaseBox {
+    gap: 20px;
+    padding: 15px;
+    align-items: start;
+    margin: 10px;
+    
+  }
+  .showcaseRow {
+    flex-direction: column;
+    gap: 15px;
+    justify-content: left;
+  }
+  .showcaseRow > * {
+    flex: 1 1 100%;
+    max-width: 100% !important;
+  }
+}

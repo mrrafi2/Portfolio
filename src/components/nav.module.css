@@ -1,0 +1,171 @@
+.stickyNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    border-bottom: 1px solid rgba(0, 209, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 209, 255, 0.2);
+    transform-origin: top center;
+    transition: transform 0.6s ease-in-out, opacity 0.5s ease;
+    animation: holoStartup 0.5s ease-out;
+
+  }
+  
+  @keyframes holoStartup {
+    0% {
+      transform: scaleY(0.95);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+  
+  .show {
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .hide {
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  /* Logo styles */
+  .logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 10px #00d1ff);
+    transition: transform 0.3s ease;
+  }
+  
+  .logo img:hover {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  
+  /* Morph Button */
+  .morphButton {
+    width: 50px;
+    height: 50px;
+    background: #00d1ff;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+  }
+  
+  .morphIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s ease;
+  }
+  
+  .morphIcon::before,
+  .morphIcon::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    transition: transform 0.5s ease;
+  }
+  
+  .morphIcon::before {
+    transform: translateY(-6px);
+  }
+  .morphIcon::after {
+    transform: translateY(6px);
+  }
+  
+  .morphIcon.open {
+    background: transparent;
+  }
+  .morphIcon.open::before {
+    transform: rotate(45deg);
+  }
+  .morphIcon.open::after {
+    transform: rotate(-45deg);
+  }
+  
+  /* Overlay */
+  .morphOverlay {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    background: #0a192f;
+    border-radius: 50%;
+    z-index: 1000;
+    pointer-events: none;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+   opacity: 0;
+  }
+  
+  .expanded {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    pointer-events: auto;
+    opacity: 1;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .overlayNav {
+    list-style: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .overlayNav li a {
+    color: #fff;
+    font-size: 1.6rem;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    font-family: "Montserrat", sans-serif;
+
+  }
+  .overlayNav li a:hover {
+    color: #ff007f;
+    transform: scale(1.05);
+    background: rgba(255, 0, 127, 0.2);
+  }
+  

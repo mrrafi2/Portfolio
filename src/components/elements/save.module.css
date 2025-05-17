@@ -1,0 +1,108 @@
+.retroButton {
+    position: relative;
+    width: 150px;
+    height: 60px;
+    background: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    perspective: 800px;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    outline: none;
+    -webkit-tap-highlight-color: transparent; 
+    transition: transform 0.6s;
+    
+  }
+  
+  /* Base face for text display */
+  .buttonFace {
+    position: relative;
+    z-index: 2;
+    line-height: 60px;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  
+  /* Flipping effect for saving state */
+  .flipping {
+    transform: rotateY(180deg);
+  }
+  
+  /* After saving, a slight bounce effect */
+  .saved {
+    animation: savedBounce 0.5s ease;
+  }
+  
+  @keyframes savedBounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Diskette graphic */
+  .diskette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Disk body to mimic a floppy disk */
+  .diskBody {
+    width: 60px;
+    height: 40px;
+    background: #555;
+    border: 2px solid #333;
+    border-radius: 4px;
+    position: relative;
+  }
+  
+  /* Blinking disk light effect */
+  .diskLight {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 10px;
+    height: 10px;
+    background: #0f0;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+    box-shadow: 0 0 8px #0f0;
+  }
+  
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+  
+  /* Retro terminal text animations */
+  .savingText, .savedText {
+    display: inline-block;
+    animation: retroFade 1.5s steps(20) forwards;
+  }
+  
+  @keyframes retroFade {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  

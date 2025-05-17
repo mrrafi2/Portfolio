@@ -1,0 +1,39 @@
+.container {
+  width: 400px;
+  height: 450px;
+  margin: 20px auto;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+  cursor: grab;
+  transition: box-shadow 0.3s ease;
+}
+
+.grab {
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: grabbing;
+  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+.infoText {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9rem;
+  color: #eee;
+  margin-top: 5px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    height: 400px;
+    width: 100%;
+  }
+  .infoText {
+    font-size: 0.8rem;
+  }
+}
+

@@ -1,0 +1,35 @@
+{
+    "name": "Rafi | Frontend Developer Portfolio",
+    "short_name": "RafiDev",
+    "description": "Explore the creative, clean, and interactive frontend works of Rafi. Built with soul, coded with passion.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "icons": [
+      {
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any"
+
+      },
+      {
+        "src": "/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+
+      },
+      {
+        "src": "/apple-touch-icon.png",
+        "sizes": "180x180",
+        "type": "image/png",
+        "purpose": "any"
+      }
+    ],
+    "prefer_related_applications": false
+  }
+  

@@ -1,0 +1,288 @@
+.contactSection{
+
+  background-color: #e0dcd1;
+  padding-top: 40px;
+padding-bottom: 30px;
+}
+.contactContainer {
+    position: relative;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 3rem;
+    background-color: #fdfaf1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .ambientBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e0dcd1, #fdfaf1);
+    z-index: -1;
+    animation: backgroundShift 20s ease infinite;
+  }
+  
+  @keyframes backgroundShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  /* Header styling with engaging typography */
+  .header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .header h2 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    color: #7f5f2a;
+  }
+  
+  .paperBox {
+    position: relative;
+    margin: 2rem auto;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    animation: boxHover 2s infinite;
+    outline: none;
+    -webkit-tap-highlight-color: transparent; 
+  }
+  
+  @keyframes boxHover {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  .boxSVG {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease;
+  }
+  
+  .paperBox:active .boxSVG {
+    transform: translateY(-20px);
+  }
+  
+  @keyframes paperSlideOut {
+    0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+    40%  { transform: translate(0, -30px) scale(1.05); opacity: 1; }
+    100% { transform: translate(0, -80px) scale(1); opacity: 0; }
+  }
+  
+  .paperOut {
+    animation: paperSlideOut 1s forwards ease-out;
+  }
+  
+  .paperOut2 {
+    animation: paperSlideOut 1s forwards ease-out;
+    animation-delay: 0.2s;
+  }
+  
+  .paperOut3 {
+    animation: paperSlideOut 1s forwards ease-out;
+    animation-delay: 0.4s;
+  }
+
+
+  /* Contact Form Styles */
+  .contactForm {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform-origin: center;
+  }
+  
+  .contactForm.sent {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  
+  .formGroup {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Vintage style inputs and textarea */
+  .inputField {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid #e0dcd1;
+    border-radius: 5px;
+    background: transparent;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .inputField:focus {
+    border-color: #b48b36;
+    box-shadow: 0 0 8px rgba(180, 139, 54, 0.6);
+  }
+  
+  /* Floating label effect */
+  .inputLabel {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-family: 'Courier New', Courier, monospace;
+    color: #777;
+    transition: all 0.3s ease;
+  }
+  
+  .inputField:focus + .inputLabel,
+  .inputField:not(:placeholder-shown) + .inputLabel {
+    top: -10px;
+    left: 0.5rem;
+    font-size: 0.8rem;
+    background: #fdfaf1;
+    padding: 0 4px;
+    color: #b48b36;
+  }
+  
+  /* Send Button with tactile hover effect */
+  .sendButton {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #b48b36;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sendButton:hover {
+    background-color: #a0782f;
+  }
+  
+  .planeContainer {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .planeSVG {
+    width: 100px;
+    height: 100px;
+    animation: planeFly 2.4s ease-in-out forwards;
+    position: relative;
+  }
+  
+  @keyframes planeFly {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+    20% {
+      transform: translate(20px, -20px) rotate(10deg);
+    }
+    50% {
+      transform: translate(100px, -60px) rotate(20deg);
+    }
+    75% {
+      transform: translate(170px, -120px) rotate(40deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(300px, -200px) rotate(60deg) scale(0.5);
+      opacity: 0;
+    }
+  }
+  
+  .inputHint {
+    font-size: 0.75rem;
+    color: #8c7f6e;
+    margin-top: 4px;
+    display: block;
+    padding-left: 2px;
+    font-style: italic;
+    letter-spacing: 0.3px;
+  }
+
+  
+
+  @media (max-width: 768px) {
+    .contactContainer {
+      padding: 1.5rem;
+      margin: 1rem auto;
+    }
+    .header h2 {
+      font-size: 1.4rem;
+    }
+    .paperBox {
+      width: 150px;
+      height: 150px;
+    }
+    .formGroup {
+      margin-bottom: 1rem;
+    }
+    .inputField {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+    .inputLabel {
+      font-size: 0.8rem;
+    }
+    .sendButton {
+      padding: 0.6rem;
+      font-size: 0.9rem;
+    }
+    .planeContainer {
+      height: 150px;
+    }
+    .planeSVG {
+      width: 80px;
+      height: 80px;
+    }
+    .socialStamps {
+      gap: 0.5rem;
+    }
+    .stamp {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .contactContainer {
+      padding: 1rem;
+    }
+    .header h2 {
+      font-size: 1.2rem;
+    }
+    .paperBox {
+      width: 120px;
+      height: 120px;
+    }
+    .inputField {
+      font-size: 0.8rem;
+      padding: 0.4rem;
+    }
+    .sendButton {
+      padding: 0.5rem;
+      font-size: 0.8rem;
+    }
+    .planeSVG {
+      width: 60px;
+      height: 60px;
+    }
+    .stamp {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.7rem;
+    }
+  }
+  

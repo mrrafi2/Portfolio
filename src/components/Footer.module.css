@@ -1,0 +1,46 @@
+.footer {
+    background: linear-gradient(270deg, #333, #555, #333);
+    background-size: 400% 400%;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    animation: gradientFooter 8s ease infinite;
+  }
+  
+  @keyframes gradientFooter {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .socialLinks {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .socialLinks a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .socialLinks a:hover {
+    color: #ffeb3b;
+    transform: scale(1.1);
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 600px) {
+    .socialLinks {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  

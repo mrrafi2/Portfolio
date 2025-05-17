@@ -1,0 +1,397 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  button {
+    outline: none;
+    -webkit-tap-highlight-color: transparent; 
+  }
+  
+  .button3D {
+    background: #4e54c8;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 8px;
+    perspective: 1000px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
+  }
+  .button3D:hover {
+    transform: translate3d(0, -10px, 15px) rotateX(5deg);
+    box-shadow: 0 20px 30px  #2a2d687a;
+  }
+  .button3D:active {
+    transform: translate3d(0, 0, 0);
+  }
+  .active3D {
+    transform: translate3d(0, -10px, 15px) rotateX(5deg);
+    box-shadow: 0 20px 30px #2a2d687a;
+  }
+  
+  /* 2. Neumorphic and Soft-UI Button */
+  .neumorphic {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff;
+  }
+  .neumorphic:hover {
+    box-shadow: inset 6px 6px 12px #bebebe,
+                inset -6px -6px 12px #ffffff;
+    transform: translateY(-3px);
+  }
+  .activeNeumorphic {
+    box-shadow: inset 6px 6px 12px #bebebe,
+                inset -6px -6px 12px #ffffff;
+    transform: translateY(-3px);
+  }
+  
+  /* 3. Liquid and Morphing Shape Button */
+  .liquid {
+    background: #ffecd2;
+    color: #333;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: clip-path 0.5s ease, transform 0.3s ease;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .liquid:before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
+    transition: transform 0.5s ease;
+  }
+  .liquid:hover {
+    clip-path: polygon(10% 0, 90% 10%, 100% 90%, 0 100%);
+    transform: scale(1.02);
+  }
+  .liquid:hover:before {
+    transform: rotate(20deg) scale(1.1);
+  }
+  .activeLiquid {
+    clip-path: polygon(10% 0, 90% 10%, 100% 90%, 0 100%);
+    transform: scale(1.02);
+  }
+  .activeLiquid:before {
+    transform: rotate(20deg) scale(1.1);
+  }
+  
+  /* 4. Glassmorphism Button */
+  .glassmorphic {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: background 0.4s ease, border 0.4s ease, transform 0.3s ease;
+  }
+  .glassmorphic:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.03);
+  }
+  .activeGlassmorphic {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.03);
+  }
+  
+  /* 5. SVG Path and Outline Animated Button */
+  .svgOutline {
+    background: transparent;
+    color: #FF6F61;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: color 0.3s ease;
+  }
+  .svgOutline .svgIcon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateX(-100%);
+  }
+  .svgOutline:hover {
+    color: #FF4500;
+  }
+  .svgOutline:hover .svgIcon {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .activeSvgOutline {
+    color: #FF4500;
+  }
+  .activeSvgOutline .svgIcon {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* 6. Micro-Interaction Focused Button */
+  .microInteraction {
+    background: #48c6ef;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .microInteraction:hover {
+    transform: scale(1.07);
+    box-shadow: 0 10px 20px rgba(72, 198, 239, 0.6);
+  }
+  .microInteraction:active {
+    transform: scale(0.93);
+  }
+  .activeMicroInteraction {
+    transform: scale(1.07);
+    box-shadow: 0 10px 20px rgba(72, 198, 239, 0.6);
+  }
+  
+  /* 7. Dynamic Gradient and Color Shifting Button */
+  .gradient {
+    background: linear-gradient(45deg, #ff7d81, #ffc4b3, #fad0c4);
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background-size: 300% 300%;
+    animation: gradientShift 4s ease infinite;
+    transition: transform 0.3s ease;
+  }
+  .gradient:hover {
+    transform: scale(1.05);
+  }
+  .activeGradient {
+    transform: scale(1.05);
+  }
+  @keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  
+  /* 8. Haptic and Audio Feedback Button */
+  .hapticFeedback {
+    background: #43cea2;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .hapticFeedback:hover {
+    box-shadow: 0 0 15px rgba(67, 206, 162, 0.8);
+  }
+  .hapticFeedback:active {
+    transform: scale(0.96);
+  }
+  .activeHapticFeedback {
+    box-shadow: 0 0 15px rgba(67, 206, 162, 0.8);
+    transform: scale(0.96);
+  }
+
+  .eventHorizon {
+    background: radial-gradient(circle at center, #000 0%, #1a1a2e 60%, #0f0f1b 100%);
+    color: #eaeaea;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .eventHorizon::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: conic-gradient(from 0deg, #ffffff22 0%, transparent 70%);
+    border-radius: 50%;
+    animation: swirl 4s linear infinite;
+    z-index: 0;
+  }
+  .eventHorizon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+  }
+  .eventHorizon span {
+    position: relative;
+    z-index: 1;
+  }
+  @keyframes swirl {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* 10. Magnetic Repulsion Button */
+  .magneticRepulsion {
+    background: #111;
+    color: #0ff;
+    border: 2px solid #0ff;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .magneticRepulsion:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 0 12px #0ff, 0 0 20px #0ff88f;
+  }
+  .magneticRepulsion:active {
+    transform: translateY(1px) scale(0.97);
+  }
+  
+  /* ——— Disco Disintegrate Button ——— */
+.discoDisintegrate {
+  background: linear-gradient(45deg, #ff00cc, #3333ff, #ffcc00);
+  background-size: 300% 300%;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  animation: discoGlow 5s ease infinite;
+  overflow: hidden;
+
+  width: 200px;       
+  height: 60px;       
+  transition: transform 0.2s ease;
+}
+
+.discoDisintegrate:hover::after {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
+  background: repeating-radial-gradient(circle, #fff 0%, transparent 10%);
+  opacity: 0.3;
+  animation: confetti 0.5s linear;
+}
+
+@keyframes discoGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Confetti shimmer */
+@keyframes confetti {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+  100% { transform: scale(1.2) rotate(720deg); opacity: 0; }
+}
+
+.tile {
+  position: absolute;
+  background-color: white;
+  pointer-events: none;
+  z-index: 999;
+  font-weight: bold;
+}
+
+  .quantumFlicker {
+    background: rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+    border: 1px solid #00ffff99;
+    padding: 15px 30px;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    animation: flicker 2s infinite alternate;
+    position: relative;
+  }
+  .quantumFlicker::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 2px dashed #00ffff44;
+    border-radius: 10px;
+    pointer-events: none;
+    animation: borderPulse 2s ease-in-out infinite;
+  }
+  @keyframes flicker {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    25% { opacity: 0.6; transform: translate(-1px, 1px) scale(0.99); }
+    50% { opacity: 1; transform: translate(1px, -1px) scale(1.01); }
+    75% { opacity: 0.8; transform: translate(-2px, 2px) scale(0.98); }
+    100% { opacity: 1; transform: translate(0, 0) scale(1); }
+  }
+  @keyframes borderPulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.6; }
+  }
+  
+  
+
+.eventWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.eventCanvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  filter: url(#turbulence);
+  z-index: 1;
+}
+
+/* for each little disco piece you append */
+.tile {
+  position: absolute;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* hand-drawn look for your SVG Outline’s <path> */
+.svgOutline svg path {
+  stroke: #FF6F61;
+  stroke-width: 2;
+  fill: none;
+}

@@ -1,0 +1,19 @@
+/* Particle.module.css */
+.particleCanvas {
+  border: 2px solid #444;
+  background: #000;
+  cursor:crosshair;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  outline: none;
+  -webkit-tap-highlight-color: transparent; 
+}
+
+@media (max-width: 480px) {
+  .particleCanvas {
+    width:300px ;
+    height: 90vh;
+  }
+}
+
