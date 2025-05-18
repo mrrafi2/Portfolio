@@ -111,7 +111,7 @@ padding-bottom: 30px;
   /* Vintage style inputs and textarea */
   .inputField {
     width: 100%;
-    padding: 0.75rem;
+    padding:  0.75rem;    
     font-size: 1rem;
     font-family: 'Courier New', Courier, monospace;
     border: 2px solid #e0dcd1;
@@ -206,11 +206,13 @@ padding-bottom: 30px;
   .inputHint {
     font-size: 0.75rem;
     color: #8c7f6e;
-    margin-top: 4px;
+    margin-bottom: 14px;
     display: block;
     padding-left: 2px;
     font-style: italic;
     letter-spacing: 0.3px;
+    position: relative;
+    top: -16px;
   }
 
   
@@ -224,15 +226,15 @@ padding-bottom: 30px;
       font-size: 1.4rem;
     }
     .paperBox {
-      width: 150px;
-      height: 150px;
+      width: 180px;
+      height: 180px;
     }
     .formGroup {
       margin-bottom: 1rem;
     }
     .inputField {
-      font-size: 0.9rem;
-      padding: 0.5rem;
+      font-size: 1rem;
+      padding: 0.7rem;
     }
     .inputLabel {
       font-size: 0.8rem;
@@ -265,20 +267,21 @@ padding-bottom: 30px;
       font-size: 1.2rem;
     }
     .paperBox {
-      width: 120px;
-      height: 120px;
+      width: 150px;
+      height: 150px;
     }
     .inputField {
-      font-size: 0.8rem;
-      padding: 0.4rem;
+      font-size: 1rem;
+      padding: 0.6rem;
+      margin-bottom: 10px;
     }
     .sendButton {
       padding: 0.5rem;
       font-size: 0.8rem;
     }
     .planeSVG {
-      width: 60px;
-      height: 60px;
+      width: 75px;
+      height: 75px;
     }
     .stamp {
       padding: 0.3rem 0.6rem;

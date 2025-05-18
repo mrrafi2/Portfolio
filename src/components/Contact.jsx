@@ -136,15 +136,18 @@ const Contact = () => {
             className={`${styles.contactForm} ${sent ? styles.sent : ''}`}
           >
             <div className={styles.formGroup}>
+            
               <input
                 type="text" name="name" value={formData.name}
                 onChange={handleChange} required placeholder=" "
                 className={styles.inputField}
               />
               <label className={styles.inputLabel}>Name</label>
-              <small className={styles.inputHint}>Your full name, please</small>
+            
 
             </div>
+            <small className={styles.inputHint}>Your full name, please</small>
+
             <div className={styles.formGroup}>
               <input
                 type="email" name="email" value={formData.email}
@@ -152,9 +155,13 @@ const Contact = () => {
                 className={styles.inputField}
               />
               <label className={styles.inputLabel}>Email</label>
-              <small className={styles.inputHint}>Active Email, So I can get back to you
-</small>
+              <br/>
+              
             </div>
+
+            <small className={styles.inputHint}>Active Email, So I can get back to you
+</small>
+
             <div className={styles.formGroup}>
               <textarea
                 name="message" value={formData.message}
@@ -162,9 +169,13 @@ const Contact = () => {
                 rows="4" className={styles.inputField}
               />
               <label className={styles.inputLabel}>Message</label>
-              <small className={styles.inputHint}>Tell me what you need help building
-</small>
+              <br />
+              
             </div>
+            <small className={styles.inputHint}>Tell me what you need help building
+</small>
+
+<br />
             <button
               type="submit"
               className={styles.sendButton}

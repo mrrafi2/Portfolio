@@ -125,7 +125,7 @@ const Hero = () => {
             <span className={styles.cursor}>|</span>
           </p>
           <p className={styles.motto}>
-          "I craft high-performing, scalable interfaces tailored for real users—balancing aesthetic, performance, and precision engineering."
+          “From concept to code, I build pixel‑perfect sites that users love and businesses trust.”
           </p>
         </div>
 
@@ -146,7 +146,7 @@ const Hero = () => {
               <span className={styles.cursor}>|</span>
             </p>
             <p className={styles.motto}>
-              "Crafting immersive digital experiences with precision & creativity."
+            “From concept to code, I build pixel‑perfect sites that users love and businesses trust.”
             </p>
           </div>
         </div>

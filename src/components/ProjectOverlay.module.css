@@ -146,7 +146,7 @@
   .timelineItem { flex: none; width:100%; }
   .galleryImage { max-width:250px; }
   .chapterTitle { font-size:1.3rem; }
-  .chapterText { font-size:.9rem; }
+  .chapterText { font-size:1rem; }
 }
 
 .content::-webkit-scrollbar {
