@@ -279,7 +279,7 @@ const projectData = [
   {
     id: 3,
     title: 'Quiver',
-    previewLink: 'https://quiver-chat.vercel.app/',
+    previewLink: 'https://quiver-rho.vercel.app/',
     description: 'Quiver is the ultimate real‑time chat playground—where bursts of conversation fly fast, and every message zhiiings with personality. ',
 
     details: [

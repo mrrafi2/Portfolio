@@ -115,7 +115,7 @@ const About = () => {
           </p>
           <p className={styles.location}>
             <i className="fa-sharp fa-solid fa-location-dot"></i>
-            <span style={{ marginLeft: "4px" }}>Chittagong, Bangladesh</span>
+            <span style={{ marginLeft: "4px" }}>Kolkata, India</span>
           </p>
           <div className={styles.socialIcons}>
             <a href="https://www.facebook.com/share/15ZTKuVpQk/" target="_blank" rel="noreferrer" className={styles.socialIconBox}>
@@ -136,7 +136,6 @@ const About = () => {
           </div>
         </FadeInSection>
 
-        {/* Animated Timeline Narrative */}
         <div className={styles.timeline}>
           <h2 className={styles.timelineHeading}>My Journey</h2>
           <ul className={styles.timelineList}>
