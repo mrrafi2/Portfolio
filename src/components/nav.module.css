@@ -1,171 +1,652 @@
-.stickyNav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: transparent;
-    border-bottom: 1px solid rgba(0, 209, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 209, 255, 0.2);
-    transform-origin: top center;
-    transition: transform 0.6s ease-in-out, opacity 0.5s ease;
-    animation: holoStartup 0.5s ease-out;
 
-  }
-  
-  @keyframes holoStartup {
-    0% {
-      transform: scaleY(0.95);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scaleY(1);
-      opacity: 1;
-    }
-  }
-  
-  .show {
-    transform: scaleY(1);
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  .hide {
-    transform: scaleY(0);
+:root {
+  --nav-primary: #00d1ff;
+  --nav-secondary: #ff007f;
+  --nav-dark: #0a192f;
+  --nav-darker: #041221;
+  --nav-white: #ffffff;
+  --nav-glow: rgba(0, 209, 255, 0.3);
+}
+
+/* Main Navigation */
+.stickyNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 209, 255, 0.2);
+  box-shadow: 
+    0 0 30px rgba(0, 209, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform-origin: top center;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: navStartup 1s ease-out;
+  overflow: hidden;
+}
+
+@keyframes navStartup {
+  0% {
+    transform: translateY(-100%) scaleY(0);
     opacity: 0;
-    pointer-events: none;
   }
-  
-  /* Logo styles */
-  .logo img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    filter: drop-shadow(0 0 10px #00d1ff);
-    transition: transform 0.3s ease;
+  60% {
+    transform: translateY(0) scaleY(1.1);
+    opacity: 0.8;
   }
-  
-  .logo img:hover {
-    transform: scale(1.1) rotate(-3deg);
-  }
-  
-  /* Morph Button */
-  .morphButton {
-    width: 50px;
-    height: 50px;
-    background: #00d1ff;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s ease;
-  }
-  
-  .morphIcon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 2px;
-    background: #fff;
-    transform: translate(-50%, -50%);
-    transition: transform 0.5s ease;
-  }
-  
-  .morphIcon::before,
-  .morphIcon::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 2px;
-    background: #fff;
-    transition: transform 0.5s ease;
-  }
-  
-  .morphIcon::before {
-    transform: translateY(-6px);
-  }
-  .morphIcon::after {
-    transform: translateY(6px);
-  }
-  
-  .morphIcon.open {
-    background: transparent;
-  }
-  .morphIcon.open::before {
-    transform: rotate(45deg);
-  }
-  .morphIcon.open::after {
-    transform: rotate(-45deg);
-  }
-  
-  /* Overlay */
-  .morphOverlay {
-    position: fixed;
-    top: 25px;
-    left: 25px;
-    width: 50px;
-    height: 50px;
-    background: #0a192f;
-    border-radius: 50%;
-    z-index: 1000;
-    pointer-events: none;
-    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-   opacity: 0;
-  }
-  
-  .expanded {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    pointer-events: auto;
+  100% {
+    transform: translateY(0) scaleY(1);
     opacity: 1;
   }
-  
-  .closeButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 3rem;
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+}
+
+.holoGrid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, transparent 98%, rgba(0, 209, 255, 0.1) 100%),
+    linear-gradient(0deg, transparent 98%, rgba(0, 209, 255, 0.1) 100%);
+  background-size: 50px 50px;
+  animation: gridShift 20s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes gridShift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50px, -50px); }
+}
+
+.scanLine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--nav-primary), transparent);
+  animation: scanlineMove 3s linear infinite;
+}
+
+@keyframes scanlineMove {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Floating Particles */
+.navParticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--nav-primary);
+  border-radius: 50%;
+  animation: floatParticle var(--duration) linear infinite;
+  animation-delay: var(--delay);
+  left: var(--x);
+  opacity: 0.6;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100px) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(80px) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(-80px) scale(1);
+  }
+  100% {
+    transform: translateY(-100px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Logo Container */
+.logoContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoOrb {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(0, 209, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: orbPulse 3s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 15px var(--nav-primary));
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 2px solid rgba(0, 209, 255, 0.3);
+}
+
+.logo img:hover {
+  transform: scale(1.15) rotate(10deg);
+  filter: drop-shadow(0 0 25px var(--nav-primary)) drop-shadow(0 0 35px var(--nav-secondary));
+  border-color: var(--nav-primary);
+}
+
+.logoRipple {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--nav-primary);
+  border-radius: 50%;
+  animation: rippleEffect 2s linear infinite;
+  opacity: 0;
+}
+
+@keyframes rippleEffect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Navigation Links (Desktop) */
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navLink {
+  position: relative;
+  color: var(--nav-white);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 209, 255, 0.2);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.linkText {
+  position: relative;
+  z-index: 2;
+}
+
+.linkGlow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 209, 255, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.navLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 209, 255, 0.4);
+  border-color: var(--nav-primary);
+  color: var(--nav-primary);
+}
+
+.navLink:hover .linkGlow {
+  left: 100%;
+}
+
+/* Quantum Menu Button */
+.quantumButton {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantumCore {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, var(--nav-primary) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: coreGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes coreGlow {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+.quantumRings {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.ring {
+  position: absolute;
+  border: 1px solid var(--nav-primary);
+  border-radius: 50%;
+  animation: ringRotate 4s linear infinite;
+}
+
+.ring:nth-child(1) {
+  width: 50px;
+  height: 50px;
+  top: 5px;
+  left: 5px;
+  animation-duration: 3s;
+}
+
+.ring:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  animation-duration: 4s;
+  animation-direction: reverse;
+}
+
+.ring:nth-child(3) {
+  width: 45px;
+  height: 45px;
+  top: 7.5px;
+  left: 7.5px;
+  animation-duration: 5s;
+}
+
+@keyframes ringRotate {
+  0% { transform: rotate(0deg); opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { transform: rotate(360deg); opacity: 0.3; }
+}
+
+.quantumIcon {
+  position: relative;
+  z-index: 10;
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.quantumIcon span {
+  width: 100%;
+  height: 2px;
+  background: var(--nav-white);
+  border-radius: 1px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.quantumIcon.open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.quantumIcon.open span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.quantumIcon.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Quantum Overlay */
+.quantumOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, var(--nav-darker) 0%, var(--nav-dark) 100%);
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow: hidden;
+}
+
+.quantumOverlay.expanded {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.overlayParticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.overlayParticle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--nav-primary);
+  border-radius: 50%;
+  animation: overlayFloat 8s linear infinite;
+  animation-delay: var(--delay);
+  left: var(--x);
+  top: var(--y);
+}
+
+@keyframes overlayFloat {
+  0%, 100% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-50px) scale(1);
+    opacity: 1;
+  }
+}
+
+.overlayGrid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, transparent 98%, rgba(0, 209, 255, 0.1) 100%),
+    linear-gradient(0deg, transparent 98%, rgba(0, 209, 255, 0.1) 100%);
+  background-size: 80px 80px;
+  animation: overlayGridShift 25s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes overlayGridShift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-80px, -80px); }
+}
+
+/* Close Button */
+.closeButton {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--nav-primary);
+  border-radius: 50%;
+  background: rgba(0, 209, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 20px var(--nav-glow);
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+
+.closeIcon::before,
+.closeIcon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: var(--nav-white);
+  transform-origin: center;
+}
+
+.closeIcon::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.closeIcon::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Overlay Content */
+.overlayContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+}
+
+.menuTitle {
+  margin-bottom: 2.5rem;
+}
+
+.titleGlitch {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--nav-white);
+  letter-spacing: 3px;
+  position: relative;
+  animation: titleGlitch 3s linear infinite;
+}
+
+@keyframes titleGlitch {
+  0%, 90%, 100% {
+    text-shadow: 0 0 10px var(--nav-primary);
+  }
+  95% {
+    text-shadow: 
+      2px 2px 0 var(--nav-secondary),
+      -2px -2px 0 var(--nav-primary);
+  }
+}
+
+.titleUnderline {
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--nav-primary), transparent);
+  margin: 1rem auto;
+  animation: underlineGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes underlineGlow {
+  0% { transform: scaleX(1); opacity: 0.5; }
+  100% { transform: scaleX(1.5); opacity: 1; }
+}
+
+/* Overlay Navigation */
+.overlayNav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.overlayNav li {
+  position: relative;
+  overflow: hidden;
+}
+
+.overlayNav li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--nav-white);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 1rem 1.7rem;
+  border: 2px solid rgba(0, 209, 255, 0.3);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.navNumber {
+  font-size: 1rem;
+  color: var(--nav-primary);
+  font-weight: 700;
+}
+
+.navText {
+  flex: 1;
+}
+
+.navHover {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 209, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.overlayNav li a:hover {
+  transform: translateX(10px);
+  border-color: var(--nav-primary);
+  box-shadow: 0 0 30px var(--nav-glow);
+  color: var(--nav-primary);
+}
+
+.overlayNav li a:hover .navHover {
+  left: 50%;
+}
+
+/* Overlay Footer */
+.overlayFooter {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.statusLine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--nav-primary);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.statusIndicator {
+  width: 8px;
+  height: 8px;
+  background: var(--nav-primary);
+  border-radius: 50%;
+  animation: statusBlink 1.5s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+/* Show/Hide States */
+.show {
+  transform: translateY(0) scaleY(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hide {
+  transform: translateY(-100%) scaleY(0.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
   }
   
-  .overlayNav {
-    list-style: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    text-align: center;
+  .stickyNav {
+    padding: 10px 20px;
+  }
+  
+  .overlayContent {
+    width: 95%;
   }
   
   .overlayNav li a {
-    color: #fff;
-    font-size: 1.6rem;
-    text-decoration: none;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: color 0.3s ease, transform 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.2);
-    font-family: "Montserrat", sans-serif;
-
-  }
-  .overlayNav li a:hover {
-    color: #ff007f;
-    transform: scale(1.05);
-    background: rgba(255, 0, 127, 0.2);
+    font-size: 1.3rem;
+    padding: 0.8rem 1.5rem;
   }
   
+  .titleGlitch {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .overlayNav li a {
+    font-size: 1.1rem;
+    padding: 0.7rem 1rem;
+  }
+  
+  .titleGlitch {
+    font-size: 1.5rem;
+  }
+  
+  .closeButton {
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}

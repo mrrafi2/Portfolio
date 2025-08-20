@@ -1,0 +1,34 @@
+{
+  "Beginnings": [
+    "It began in the long COVID lockdowns. I had time and nowhere to go, so I buried myself online and in tutorials.",
+    "I watched endless videos, read blogs, and copied examples just to see how things worked. Small questions turned into long late-night sessions.",
+    "I only had a hand-me-down laptop. It was slow, but I treated it like a lab. I broke things on purpose to learn how they fixed.",
+    "Every bug felt personal. When a button animation finally worked I celebrated like i'd won something. Those tiny wins kept me going.",
+    "I sketched ideas on napkins, on the back of bills, anywhere. Colors, layouts, tiny interactions. Little experiments that grew into bigger pages.",
+    "I learned by doing: a page here, a mini app there, each one teaching a new rule about layout, fonts, or user flow. I learned faster when I broke things first and fixed them later."
+  ],
+  "Forging Foundations": "At first I copied and changed examples. I learned HTML tags and CSS rules by rebuilding small templates. Floats and clears felt hard, then Flexbox and grid fixed most of that mess. JavaScript came next. At first I developed basic knowladge. I played with events, clicks, and simple DOM updates. I made small tools: a countdown, a theme switcher, a tiny todo app. Those small projects taught me structure and patience. I also learned to read docs and ask the right question on forums. Each tiny win built a base I still use today.",
+  "Learning": "After basics I moved to frameworks and tools. I used Bootstrap to get usable layouts fast. Tailwind helped me ship small screens quick. Then React changed how I think about UIs. JSX made markup clearer and hooks made state easier to manage. I practiced making reusable components and clean props. I added animations with Framer Motion and small visual bits with particles. I tried Three.js once and it taught me limits and when not to overdo effects. I learned testing basics and the value of small unit tests. I still read docs and update old code. Learning never stops.",
+  "Crafting Real-World Projects": [
+    "I stopped doing small demos and built things that real people could use.",
+    "Authentication: I learned sign up, login, password reset, and session handling. I saw how a small auth bug could lock people out, so I wrote safe flows and clear error messages.",
+    "Quizzes: I made a full quiz app with themes, timers, scoreboards, and player profiles. I worked on fairness for timers and made server-side anchors so everyone saw the same time.",
+    "Blog platform: writers can compose, tag, and publish. I added draft saving, editor toolbars, image embeds, and reading history with timestamps. I also added like and bookmark features and small analytics to see what reads well.",
+    "Ecommerce: I built product lists, cart, checkout and order history. I handled image uploads, client previews, and basic inventory checks so items don't oversell. I added simple PWA support so pages work offline sometimes.",
+    "Live chat: sockets, canvas drawing for quick sketches, and voice notes. I made mood themes and little micro-interactions so chat feels playful, not empty.",
+    "Admin tools: dashboards to manage content, review flags, and see simple engagement stats. I added moderation flows so bad content can be removed fast.",
+    "Performance: I learned to split code, lazy-load images, and compress assets. That cut load time and kept users from leaving.",
+    "Deployment: I moved apps to Vercel and Firebase, wrote small scripts for builds, and kept deploys repeatable. Each deployment taught me how fragile a live site can be.",
+    "User feedback: I added in-app reports and quick surveys. Real user notes pointed out issues I never saw in my tests."
+  ],
+  "Future": [
+    "I want to mix craft with smart tech. AI is next: helpers that suggest content, tune difficulty, or generate drafts for writers.",
+    "More performance work: smaller bundles, faster first paint, and smart caching so the site feels instant.",
+    "Accessibility is not optional. I will work on keyboard flows, screen reader labels, and high contrast options so more people can use my work.",
+    "Offline first: better caching and write-queue so users can work when network drops and sync later.",
+    "Explore new tools: try Svelte or Solid for some parts if they make sense. Test WebAssembly only where it helps speed.",
+    "Open source: share tools and small libs I use so other devs can copy or improve them. I learn faster when I give back.",
+    "Teach more: short guides, quick videos, and example code so others can start faster. I remember how lost I felt, and I want to shorten that road.",
+    "Keep the work simple and honest. No flashy junk for the sake of it. Build things that work and a few small surprises that make people smile."
+  ]
+}

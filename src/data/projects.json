@@ -1,0 +1,392 @@
+[
+  {
+    "id": 1,
+    "title": "Dynamic, gamified modern Quiz app",
+    "previewLink":"https://quezzer-rp.vercel.app/",
+    "description": "Nov 2023 - Feb 2024",
+    "type": "Web App",
+
+     
+"discovery": [
+    "Quezzer started as my first proper web project to solve a real problem and learn fast.",
+    "It came from a late-night trivia with friends. I felt annoyed because existing quiz apps were either cold, messy, or too slow.",
+    "My goal was simple: make learning and quizzing feel like a fun game night, not a dull test.",
+    "Talking to people I found three main problems: boring interfaces, unfair timing/scoring, and long setup time.",
+    "That became the brief. I wanted an app that is quick to open, easy to play, and feels social."
+  ],
+  "planning": [
+    "I chose a component-driven architecture so small parts can be swapped without breaking the whole app.",
+    "Game rules and scoring live in a core logic layer, UI lives in components, and syncing/persistence is handled by a thin service layer.",
+    "Acceptance criteria focused on player feeling: instant feedback, fair timing across devices, and clear progress indicators.",
+    "To cut risk I picked stable libraries for realtime sync and kept the data model small and predictable.",
+    "I planned mobile-first and accessibility from day one so the app works on low-end phones as well as desktops.",
+    "I sketched flows for first-time users, hosts, and admins so onboarding, hosting, and moderation were covered early.",
+    "I also planned monitoring and simple analytics to see if people actually finish rounds and which questions fail."
+  ],
+  "features": [
+    "Flexible quiz engine: single choice, multiple choice, timed rapid rounds, free-text answers, and bonus rounds.",
+    "Instant scoring and visible feedback: correct answers, streaks, small celebration when you get combos, and subtle nudges when you're behind.",
+    "Host tools: import/export question sets, quick templates, timer control, and one-click session start so hosts can move fast.",
+    "Real-time leaderboard with smooth rank transitions, player avatars, and short animations to show movement.",
+    "Responsive UI: works on phones, tablets, and desktops. Touch-first controls and keyboard shortcuts for hosts.",
+    "Authentication and progress: players can sign in, save history, track simple stats, and see personal bests.",
+    "Admin panel: review flagged questions, fix bad content, and basic analytics about difficulty and engagement.",
+    "Built-in feedback: players can report issues, suggest edits, and rate questions which helps content improve.",
+    "Small social features: invite links, public/private sessions, and the option to show a short chat during games.",
+    "Offline support (basic): local drafts and retry queues so short disconnects don't break the host session."
+  ],
+  "techStack": [
+    "Frontend using modern component-driven JavaScript for speed and reuse.",
+    "Lightweight realtime layer for syncing timers and leaderboards so everyone sees the same moment.",
+    "Local storage for drafts and resilience, plus server-side storage for authoritative scores and history.",
+    "Type checking and unit tests around core game and scoring logic to reduce bugs.",
+    "Asset optimization and lazy loading to keep initial load fast on mobile.",
+    "Simple monitoring and logs for errors and session performance so we can spot problems early."
+  ],
+  "problemSolve": [
+    "Problem: timers differed across devices and caused fights about who answered first. Solution: server-authoritative time anchor and client correction algorithm. Result: synchronized rounds and far fewer timing disputes during tests.",
+    "Problem: UI broke when we added new question types. Solution: flexible prop-driven components and clear layout rules. Result: new types added without visual regressions.",
+    "Problem: new features introduced score regressions in edge cases. Solution: type-checked scoring functions and unit tests for edge inputs. Result: fewer production bugs and faster diagnosis.",
+    "Problem: slow mobile loads caused players to drop before a round. Solution: prioritize critical CSS and JS, optimize images, lazy-load extras. Result: faster first paint and better retention on first plays.",
+    "Problem: leaderboard updates caused janky UI under heavy updates. Solution: batch DOM updates and use transform-based animations. Result: smooth animations on mid-range devices.",
+    "Problem: hosts found session creation confusing and slow. Solution: guided session creation UI with sane defaults plus import/export for question sets. Result: faster setup and fewer user errors.",
+    "Problem: cheating and duplicate answers in public sessions. Solution: add simple anti-cheat checks (rate limits, unique tokens per player) and basic answer hashing. Result: fewer repeat-cheaters and cleaner leaderboards.",
+    "Problem: content quality varied because anyone could add questions. Solution: flagged-question workflow, quick moderation tools, and community rating for questions. Result: bad questions got fixed faster and average quality rose.",
+    "Problem: sync conflicts when a host went offline then returned. Solution: conflict resolution policy with server wins plus a merge UI for minor conflicts. Result: fewer lost rounds and clearer resolution for hosts.",
+    "Problem: inconsistent input validation caused crashes for odd free-text answers. Solution: stricter validation and normalization for user input and fallback parsing. Result: fewer crashes and more tolerant answer handling.",
+    "Problem: analytics were noisy and unhelpful. Solution: basic but focused metrics (completion rate, average time per question, drop-off point) and simple dashboards. Result: we could see where players leave and which questions to fix."
+  ],
+  "future": [
+    "Add multiplayer voice chat and a lightweight chat so social play feels richer.",
+    "Add AI-assisted question creation and automated difficulty tuning to help hosts build balanced quizzes faster.",
+    "Provide deeper analytics: question heatmaps, time-to-answer distributions, and retention cohorts to guide content curation.",
+    "Improve offline-first play so a host can run local rounds and sync results when the network returns without data loss.",
+    "Open a simple web API so educators and third-party creators can plug Quezzer into other learning platforms.",
+    "Work on internationalization: easy language packs and right-to-left support to reach more players.",
+    "Build better onboarding and sample packs for teachers and event hosts so they can run a game in minutes."
+  ],
+  "gallery": [
+      "../assets/quezzer-1.webp",
+      "../assets/quezzer-2.jpg",
+      "../assets/quezzer-3.webp",
+      "../assets/quezzer-4.webp",
+      "../assets/quezzer-5.jpg"
+    ],
+    "image": "../assets/quezzer-1.webp",
+    "rotation": 5
+  },
+
+  {
+    "id" : 2,
+    "title" : "Real-time full featured Blogging platform",
+  "previewLink": "https://brainiac-lime.vercel.app/",
+    "description" : "Mar 2024 - Jul 2024" ,
+    "type" : "Web App",
+
+   "discovery": [
+    "After creating a simple quiz app my aim was to developing a more complex big platform for content consumption with all modern features (including blog editor with multiple formats support, rich media embedding, liking, bookmarking, sharing, history tracking, blog channel etc.) to tackle the challenges I faced and pushing my limits.",
+    "One night I was scrolling my messy bookmarks and half-read posts and felt frustrated. Managing reading across many sites was clumsy.",
+    "I sketched Brainiac as a small home for things I wanted to read later. A simple, personal place that felt quick and familiar.",
+    "I saw other aggregators buried controls behind menus or used flashy templates that got in the way. I wanted a clean feed, not a showroom.",
+    "My first wireframes had a top search, a sidebar for bookmarks and categories, and a main feed with post cards.",
+    "From that the idea grew: Brainiac should feel like a living reading companion, not just another app."
+  ],
+  "planning": [
+    "I defined two personas: the Reader who saves and browses, and the Contributor who writes mini-blogs and manages drafts.",
+    "I used a feature-first folder layout under src/components so each area keeps its code, style, and logic together.",
+    "Routing used React Router v6: public feed routes, protected write and account routes guarded until auth was ready.",
+    "AuthContext with custom hooks handled user state. I avoided Redux to keep things light and simple.",
+    "Tailwind for fast styling and small global CSS resets for things Tailwind didnt cover.",
+    "I sketched flows for onboarding, bookmarking, writing, and history so each path had a clear goal early on.",
+    "I also planned basic monitoring and simple metrics to measure if people actually return to read later."
+  ],
+  "features": [
+    "Firebase Auth for signup/login and persistent sessions so users stay logged in.",
+    "Responsive post grid: blogGrid fetches metadata, blogCard shows title, excerpt, author, and date.",
+    "Debounced search bar for near-instant client-side filtering without extra network calls.",
+    "Bookmarks and likes that toggle instantly in the UI and write to Firestore in background.",
+    "Reading history panel that logs each view with timestamps and shows what you read recently.",
+    "Rich editor powered by React Quill with headers, code blocks, lists, and media support.",
+    "OverPortal-style help and tooltips that float above the layout so help is always visible.",
+    "scrollToTop hook resets scroll on route change to avoid landing mid-page.",
+    "Infinite scroll with pagination so feed loads in chunks and stays snappy.",
+    "Simple share and invite links so users can send a card or session to friends."
+  ],
+  "techStack": [
+    "React 18 and Vite for fast dev and small builds.",
+    "React Router v6 for nested and protected routes.",
+    "React Context API (AuthContext) and custom hooks for local state.",
+    "Firebase Auth for users and Firestore for posts, bookmarks, and history.",
+    "Assets in components/images with a single logo.png as brand anchor."
+  ],
+  "challenges": [
+    "Flashing protected pages: The app showed protected UIs before auth resolved. Fix: add loading flag in AuthContext and block private routes until ready. Result: no more flicker or broken pages.",
+    "Search lag: Searching on every keystroke made UI janky. Fix: 300 ms debounce in searchbar. Result: smoother typing and less CPU use.",
+    "Bookmark sync delay: Users saw slow feedback after toggling bookmarks. Fix: optimistic UI updates, then write to Firestore with error fallback. Result: users feel instant response, and errors can be retried.",
+    "Huge feed load: Loading thousands of posts froze the page. Fix: paginate Firestore queries and add infinite scroll loader. Result: fast initial render and steady scrolling.",
+    "Editor re-renders: React Quill toolbars kept re-rendering and lagging. Fix: memoize modules and formats with useMemo. Result: stable editor and less lag.",
+    "Media uploads were slow and broke on weak networks. Fix: client-side image compression, upload queue, and resumable uploads. Result: fewer failed uploads and faster posting.",
+    "Auth edge cases: sessions sometimes expired and caused weird UI states. Fix: explicit refresh handling and clear error states in AuthContext. Result: fewer surprise logouts and clearer messages.",
+    "SEO for public posts: single-page routing hid content from bots. Fix: server-side rendering for key public pages and better meta tags. Result: improved indexing and share previews.",
+    "Offline reads: users lost saved reads when offline. Fix: cache article bodies in local storage and use a small service worker. Result: basic offline reading works and syncs later.",
+    "Conflict on edits: two contributors could overwrite drafts. Fix: simple last-write-wins plus a small merge UI for conflicts. Result: fewer lost drafts and clear conflict recovery."
+  ],
+  "problemSolve": [
+    "Always treat async spots as danger points. Show loading states and dont assume instant replies.",
+    "Use optimistic UI for actions that feel immediate. Users forgive background fixes if the UI reacts fast.",
+    "Paginate early. Even with few posts, design for scale so you dont pay a performance tax later.",
+    "Memoize heavy configs in editors and big components to avoid useless rerenders.",
+    "Compress media on client, queue uploads, and retry on failure. Network will always be flaky for some users.",
+    "Keep auth handling centralized so session edge cases are easier to fix in one place.",
+    "Add small server-side rendering for public content to help SEO and social sharing.",
+    "Provide conflict recovery UI when multiple people edit the same draft. Dont hide merges behind logs."
+  ],
+  "future": [
+    "Add BookmarksContext to manage caching and offline sync for bookmarks separate from AuthContext.",
+    "Real-time collaboration for mini-blogs using Firestore onSnapshot so two people can edit together.",
+    "Dark mode toggle and saved theme preference in localStorage.",
+    "Admin panel for moderation, role-based access, and analytics under /admin.",
+    "Mobile UX improvements: swipe gestures on blogCard for like/bookmark and bigger touch targets.",
+    "Export to Markdown and import from RSS so users can move content in and out easily.",
+    "Better offline-first mode with full read/write sync and conflict merge when back online.",
+    "Smart recommendations: simple content suggestions based on reading history and tags.",
+    "Automated backups and user-export so people can download their posts and bookmarks.",
+    "Tiny performance budget: audit memory and battery use on low-end phones and trim what drains them."
+  ],
+  
+    "gallery" : [
+     "../assets/blog-img-1.png",
+      "../assets/blog-img-2.jpg",
+      "../assets/blog-img-3.png",
+      "../assets/blog-img-4.jpg",
+      "../assets/blog-img-5.png"
+    ],
+
+    "image" : "../assets/blog-img-1.png",
+    "rotation" : -4
+  },
+
+  {
+    "id": 3,
+    "title": "Electrifying Neon-themed E-commerce Experience",
+    "previewLink": "https://neon-cart.vercel.app/",
+    "description": "Jan 2025 - Apr 2025",
+    "type": "E-commerce",
+
+    
+   "discovery": [
+    "After finishing the blogsite project, my aim was big I wanted to create something entirely different: a vibrant, a visual animated, user-friendly e-commerce platform.",
+    "One night I was browsing a friend's online shop and it felt frozen in time: clumsy navigation, mixed styles, and a checkout that went in circles. It annoyed me and it sparked Neon-Cart.",
+    "I saw most marketplaces force a tradeoff: bland templates or developer-only dashboards. I wanted both: a playful, neon look for buyers and simple real tools for sellers.",
+    "I started with pen sketches of neon gradients, glowing buttons, and seller wizards that felt more like short guides than boring forms. Then I moved those ideas to a Miro board and mapped flows with little notes about user emotion.",
+    "I treated Neon-Cart like a story where every hover, animation, and redirect helps the user. The plan was to mix bold design with solid commerce basics."
+  ],
+  "planning": [
+    "I mapped two main paths: buyer (landing, browse, cart, checkout, orders) and seller (signup, application, list product, inventory). I broke each flow into tiny steps to spot friction early.",
+    "I used a feature-first folder layout under src/components so cart, auth, and seller code live together with their styles and hooks. This made it easy to find code fast.",
+    "Routing used React Router v6 with nested routes. I made sure seller-only pages are guarded, and I only check guards after auth fully loads to avoid bad redirects.",
+    "State lives in simple React Contexts with custom hooks (useAuth, useCart). No Redux, less boilerplate, faster builds. Cart state persists to localStorage so users do not lose items.",
+    "Styling used Bootstrap utilities for grids and CSS Modules for component styles. This balance let me prototype layouts quickly and avoid global style fights.",
+    "I sketched seller onboarding and product listing forms early so the long form pain points were obvious before coding started."
+  ],
+  "features": [
+    "Secure auth via Firebase Auth: email/password and Google sign-in, with session persistence so users stay logged in.",
+    "Recursive category explorer that lazy-loads metadata, so pages feel fast even with many categories.",
+    "Persistent cart with add/remove, quantity updates, and subtotal recalculation. Cart syncs to localStorage instantly.",
+    "Multi-step seller onboarding and listing form with drag-and-drop image uploads, live previews, and rich description fields.",
+    "Global UX helpers: loading overlay during async ops, a portal component for modals and upload panels, and scroll-to-top on route change.",
+    "Product previews update live as sellers fill the form, reducing surprise after publish.",
+    "Basic order history and simple order detail pages for buyers.",
+    "Seller dashboard showing listings, basic inventory and recent orders.",
+    "Optimized images with client-side preview and lazy loading to keep pages quick on mobile."
+  ],
+  "techStack": [
+    "React 18 with Vite for fast dev reloads and small production bundles.",
+    "React Router v6 for nested routes and guards.",
+    "React Context API and custom hooks for auth and cart state.",
+    "Firebase Auth for login and Firestore for product metadata and orders.",
+    "Bootstrap utilities for layout plus CSS Modules for scoped styles.",
+    "Vercel for frontend hosting, Firebase Hosting / Functions for serverless APIs."
+  ],
+  "challenges": [
+    "Auth redirects: Sellers was being bounced out because role checks ran before auth finished. Fix: add loadingAuth flag and only guard routes after roles load. Result: no more wrong redirects.",
+    "Cart loss: Users lost carts on refresh or hot reload. Fix: two-way sync between CartContext and localStorage, hydrate on mount. Result: cart survives refresh and dev reloads.",
+    "Style clashes: Bootstrap utilities sometimes broke custom neon styles. Fix: scope critical rules in CSS Modules and follow a naming convention so styles don't leak. Result: consistent look.",
+    "Large product JSON: One big metadata file slowed initial loads. Fix: split per-category files and dynamic import on demand. Result: faster first load.",
+    "Image upload UX: Default inputs felt dead and confusing. Fix: add drag-and-drop, client thumbnails, and an upload queue shown in a portal. Result: sellers get instant feedback and fewer failed uploads.",
+    "Order race conditions: simultaneous stock updates caused oversells. Fix: server checks on purchase, reserve inventory during checkout, and confirm on payment. Result: fewer oversold items.",
+    "Returns and refunds were manual and slow. Fix: add a simple refund workflow and status field for orders, plus email notifications. Result: faster resolution and less support load.",
+    "Fraud attempts: some fake accounts tried to place many small orders. Fix: rate limits, simple verification steps for sellers, and a fraud alert log. Result: fewer suspicious orders.",
+    "SEO and social previews: product pages not indexed well. Fix: add server-side meta tags for key public pages and improve share cards. Result: better indexing and nicer previews."
+  ],
+  "problemSolve": [
+    "Always assume network and auth are slow. Show clear loading states and only run guards after auth is ready.",
+    "Persist important user data early. Cart and draft listings must survive refresh and bad networks.",
+    "Split big data into small chunks and lazy-load. This keeps initial bundles light and pages fast.",
+    "Give sellers instant feedback. Live previews, thumbnails, and upload queues reduce mistakes and anxiety.",
+    "Protect critical operations server-side. Check inventory and finalize on server so you cant oversell.",
+    "Provide clear payment errors and region testing. A vague decline kills conversion more than a small fee.",
+    "Monitor for fraud with simple heuristics first, then add tougher checks if needed.",
+    "Design for returns and refunds early. A clear flow saves support time and trust."
+  ],
+  "future": [
+    "Add PWA support and service worker caching so product pages work offline and load faster on repeat visits.",
+    "Build a seller analytics dashboard with charts for sales, views, and inventory alerts.",
+    "Integrate a hosted search service for fast typo-tolerant search and faceted filters.",
+    "Add multi-currency pricing and basic tax handling for international sellers.",
+    "Offer better order fulfillment hooks: print-ready invoices, shipping label integrations, and status webhooks.",
+    "Introduce advanced anti-fraud tools and a simple KYC step for higher-risk sellers.",
+    "Improve mobile checkout with one-tap pay and saved card options, reducing cart abandonment.",
+    "Optimize images with a CDN and automatic webp conversion to save bandwidth for mobile users.",
+    "Add seller onboarding templates and sample listings so new sellers get started in minutes.",
+    "Experiment with automated recommendations to surface related products and boost cross-sell."
+  ],
+
+  "gallery": [
+      "../assets/neon-img-1.png",
+     "../assets/neon-img-2.png",
+       "../assets/neon-img-3.png",
+        "../assets/neon-img-4.png",
+         "../assets/neon-img-5.png"
+    ],
+    "image" : "../assets/neon-img-1.png" ,
+    "rotation": 3
+  },
+
+
+  {
+    "id": 4,
+    "title":"Complete Real-time chat messenger",
+    "previewLink": "https://quiver-chat.vercel.app/",
+    "description": "Jun 2025 - Present",
+    "type": "Mobile Web App",
+
+  "discovery": [
+    "NB: Designed and tested only for mobile. Desktop layout may break or look messy, please check this project on a smartphone.",
+    "Quiver began as a focused reaction to a simple observation: most mobile chat experiences either trade personality for performance or pile features on until the app feels brittle. The goal was to build a mobile-first chat app that feels native, forgiving on flaky networks, and full-featured without being fragile.",
+    "Early prototypes exposed core needs: reliable real-time messaging, simple but powerful media handling (images, voice, sketches), and a clean mobile UI that hides complexity while giving advanced users rich controls.",
+    "From those prototypes, the project crystallized into a single-minded brief: ship a compact chat product that prioritizes user perception, immediate feedback, clear progress indicators, and graceful fallbacks  even on low-end phones and poor connections."
+  ],
+  "planning": [
+    "Adopt a feature-first code organization so every domain (chat, media, auth, canvas) lives in its folder under `src/components/`. This reduces cognitive load when working on a single feature and improves maintainability.",
+    "Use Firebase for realtime messaging and auth to speed development and focus engineering effort on UX and client stability rather than backend plumbing.",
+    "Design a small set of shared services (`services/Cloudinary`, `services/Firebase`) to centralize uploads and realtime logic, enabling consistent progress reporting and reuse across images, voice notes and canvas exports.",
+    "Define defensive UX patterns for unreliable environments: explicit loading flags, optimistic UI patterns with rollback, feature detection for APIs (mediaDevices, service workers), and a unified upload progress UI via portals.",
+    "Prioritize mobile entitlements: touch-first gestures, portal-based overlays to handle on-screen keyboards, memory-conscious rendering, and careful event cleanup to avoid resource leaks on constrained devices."
+  ],
+  "features": [
+    "Real-time messaging through Firebase Realtime Database, including typing indicators, last-read markers, and resilient subscription handling to avoid duplicate listeners.",
+    "Text messages with robust send flow: optimistic UI, transient local state for drafts, and explicit resend paths for failed sends.",
+    "Image uploads with a polished UX: drag/select, immediate client-side thumbnails (object URLs), portal-based upload progress UI, and Cloudinary integration with progress callbacks.",
+    "Voice messages captured in-browser for mobile: permission-gated recording, waveform preview rendered on a canvas using an AudioContext/Analyser (or a lightweight drawing fallback), local playback, and upload progress visualization.",
+    "Canvas overlay for sketches and doodles: touch-optimized drawing, stroke smoothing, export to PNG and upload as media, all executed in a portal to stay above the keyboard and chat UI.",
+    "FloatingActionBar and portal UI patterns for consistent overlays (upload loaders, canvas, record UI) so important modals never get hidden behind native keyboards or mobile quirks.",
+    "Service worker and messaging registration guarded by capability checks to avoid silent failures on unsupported browsers and devices."
+  ],
+  "techStack": [
+    "React 18 with a Vite-based build for fast HMR and small production bundles.",
+    "Firebase (Auth + Realtime Database) chosen for low-latency messaging and easy authentication primitives.",
+    "Cloudinary used as a single, unified destination for client uploads (images, audio, canvas exports) with progress reporting.",
+    "Framer Motion for small, performant animations and transitions tailored to mobile UX.",
+    "CSS Modules for scoped, predictable component styles to prevent cross-component style leakage on small screens.",
+    "Browser APIs (MediaRecorder, navigator.mediaDevices, AudioContext, Canvas) used carefully with feature detection and fallbacks to support a wide range of devices."
+  ],
+  "challenges": [
+    "Flicker and premature redirects due to async auth: Firebase's asynchronous auth state caused the app to briefly render unauthorized UI. Solution: introduced explicit `loading` flags in `AuthContext` and gated protected routes until the user and profile were fully hydrated, eliminating confusing flashes for mobile users.",
+    "Media recording and cross-device inconsistencies: mobile browsers differ in API availability and behavior. Solution: implement capability checks (`navigator.mediaDevices`, `MediaRecorder`), request permissions only when needed, provide graceful fallbacks, and carefully manage lifecycle (stop tracks, release resources) to avoid locked microphones or camera issues.",
+    "Slow or opaque media uploads on poor networks: users need feedback during long uploads. Solution: centralize upload logic in `services/Cloudinary` with XHR progress events, standardize an upload UI (`ImgLoader.jsx`) displayed via portals, and reuse the same pattern across images, voice, and canvas exports for consistency.",
+    "Message list performance on low-end devices: re-rendering long lists caused jank. Solution: memoize heavy components, minimize work in render paths, and keep DOM updates localized. Where possible, adopt lazy loading or plan virtualization to bound memory and CPU usage.",
+    "Complexity creep in the primary orchestrator (`ChatWindow.jsx`): a single file accumulated many responsibilities. Solution: decompose features into focused components (Message, Sidebar, FloatingActionBar, CanvasOverlay) and define clear coordination boundaries. Leave explicit TODOs and a prioritized refactor plan to split logic into custom hooks for typing, scroll management, and subscriptions.",
+    "Canvas drawing ergonomics on touch devices: raw pointer input looked jagged and felt brittle. Solution: implement simple stroke smoothing and interpolation, persist strokes for undo/export, and render the overlay via a portal to avoid layout conflicts with the keyboard.",
+    "Service worker and push messaging fragility: registering SW and messaging on unsupported browsers created errors. Solution: wrap registration in capability checks and expose feature availability to the UI, letting the client show alternative UX when push is not available."
+  ],
+  "problemSolve": [
+    "Start user-visible: tackle the most noticeable failures first (auth flashes, upload opacity, recording hangs). Restoring a reliable experience has outsized impact on perceived quality.",
+    "Make risky APIs explicit and guarded: wrapping media, service worker, and messaging APIs in small adapters with capability checks reduces crash surface and clarifies fallback strategies.",
+    "Unify common UX patterns: a single upload API and a single portal-based loader reduce cognitive load for users and maintenance work for engineers.",
+    "Optimistic UI paired with robust rollback is a force multiplier: immediate visual feedback keeps users engaged while background sync resolves, but errors must be surfaced and reversible.",
+    "Keep heavy logic out of render paths: memoization, careful keying, and planned virtualization are essential on mobile where CPU and memory are limited.",
+    "Iterate toward maintainability: ship functionality in a composed form, then refactor toward cleaner hooks and smaller components once behavior is proven with real users."
+  ],
+  "future": [
+    "Virtualize long message lists (react-window or custom windowing) to guarantee fluid scroll performance on extremely long conversations.",
+    "Refactor `ChatWindow.jsx` into targeted hooks: `useMessageSubscriptions`, `useTypingIndicator`, `useScrollManager` to improve testability and reduce cognitive overhead.",
+    "Implement an offline queue for outgoing messages and uploads so actions persist across connectivity drops and retry automatically when the network returns.",
+    "Add fine-grained media controls: audio trimming and preview editing before upload, inline waveform scrubbing for playback, and resumable uploads for large files on flaky networks.",
+    "Introduce a small analytics surface for debugging real-world issues (failed uploads, slow clients) and to guide performance work based on real usage data.",
+    "Prepare a prioritized refactor and test plan (unit + integration) for critical flows: message send, media upload, and recording lifecycle, so future contributors can move confidently."
+  ],
+
+    "gallery": [
+      "../assets/quiver-img-1.jpg",
+      "../assets/quiver-img-2.png",
+      "../assets/quiver-img-3.jpg",
+      "../assets/quiver-img-4.jpg",
+      "../assets/quiver-img-5.png"
+    ],
+
+   "image": "../assets/quiver-img-1.jpg",
+    "rotation": 2
+  },
+
+{
+   "id": 5,
+  "title": "Nebula – AI-Powered Social Media UI",
+  "previewLink": "https://nebula-kappa-two.vercel.app/",
+  "description": "Jul 2025 (v1.0)",
+  "type": "UI Design",
+
+  
+  "discovery": [
+"Nebula began from a late-night frustration: indie teams kept rebuilding the same social UI pieces and losing time to styling drift and brittle animations.",
+"Conversations with designers and devs showed a gap: people wanted a starter that was both elegant and production-ready, not a toy or a rigid template.",
+"The brief became emotional as well as technical: build something that reduces friction, respects craft, and lets teams prototype with confidence."
+],
+"planning": [
+"Choose an atomic structure so components scale cleanly: atoms, molecules, organisms, pages.",
+"Prioritize developer experience: use TypeScript for safety and Vite for instant feedback during development.",
+"Set clear acceptance criteria: zero-config demo, theme tokens, basic a11y, and motion that does not harm performance.",
+"Mitigate risk by lazy-loading heavy assets and honoring prefers-reduced-motion by default."
+],
+"features": [
+"Runnable frontend scaffold with HTML, Tailwind CSS, and JavaScript so teams can prototype fast.",
+"Core pages implemented: Home, Feed, Chat, and Navigation with a working layout and sample data.",
+"Reactions, threaded replies, and media-ready feed items with copyable component examples.",
+"Animated UI using Framer Motion and Lottie for polished loaders and transitions that prioritize transform+opacity.",
+"Assets included: logo, icons, Lottie files, and graphics for immediate demos and client previews.",
+"Clean folder structure, TypeScript declarations, linting scripts, and a Vercel preview for sharing."
+],
+"techStack": [
+"Frontend: React with Vite for fast development and small bundles.",
+"Styling: Tailwind CSS for utility-first layout and consistent tokens.",
+"Motion: Framer Motion and Lottie for expressive but performant animations.",
+"Tooling: TypeScript for safety, ESLint for consistency, PostCSS for build integration.",
+"Deployment: Designed to be deployed on Vercel or any static hosting with a preview link for stakeholders."
+],
+"problemSolve": [
+"Problem: Tokens drifted between design and code. Solution: central token file and a documented export/import step. Result: consistent visuals and fewer handoff edits.",
+"Problem: Rich animations caused jank on mid-range devices. Solution: prefer transform and opacity animations, add a motion token, and respect reduced-motion. Result: smoother interactions without losing character.",
+"Problem: Heavy Lottie and image assets slowed initial loads. Solution: lazy-load non-critical animations and optimize images. Result: faster first paint and better demo feel.",
+"Problem: Engineers spent hours reproducing static designs. Solution: include runnable demo pages and copyable component snippets. Result: faster onboarding and more faithful implementations.",
+"Problem: Component variants multiplied quickly. Solution: consolidate states into prop-driven variants and document prop contracts. Result: fewer components and simpler testing."
+],
+"future": [
+"Publish an interactive component catalog with knobs and accessibility states to make the system explorable.",
+"Add CI token validation and visual smoke tests to catch style drift early.",
+"Implement virtualization for long feeds to guarantee smooth scrolling at scale.",
+"Expose platform token mappings so teams can reuse the system in native apps.",
+"Create a contributor playbook and one-page onboarding to lower the barrier for community contributions."
+],
+
+  "gallery": [
+      "../assets/nebula1.webp",
+      "../assets/nebula2.webp",
+      "../assets/nebula3.webp",
+      "../assets/nebula4.jpg"
+    ],
+
+    "image": "../assets/nebula1.webp",
+    "rotation": 3
+}
+
+]
