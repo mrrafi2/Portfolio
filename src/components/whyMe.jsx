@@ -1,7 +1,7 @@
 // src/components/WhyMe.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import styles from './WhyMe.module.css';
+import styles from './whyMe.module.css';
 
 const cosmicFeatures = [
   {
