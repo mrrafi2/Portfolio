@@ -245,9 +245,10 @@
   "gallery": [
       "../assets/neon-img-1.png",
      "../assets/neon-img-2.png",
+     "../assets/neon-img-5.jpg",
        "../assets/neon-img-3.png",
-        "../assets/neon-img-4.png",
-         "../assets/neon-img-5.png"
+        "../assets/neon-img-4.png"
+         
     ],
     "image" : "../assets/neon-img-1.png" ,
     "rotation": 3
