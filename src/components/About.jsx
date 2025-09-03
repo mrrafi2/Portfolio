@@ -90,57 +90,6 @@ const TimelineItem = ({ delay, title, text, styleClass, isDark }) => {
   );
 };
 
-// Optimized Profile Card
-const ProfileCard = ({ isDark }) => {
-  const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={inView ? { 
-        opacity: 1, 
-        scale: 1,
-        transition: { duration: 0.8 }
-      } : {}}
-      className={`${styles.profileCard} ${isDark ? styles.dark : styles.light}`}
-    >
-      <div className={styles.profileFrame}>
-        <img src={profile} alt="Profile" className={styles.profilePic} />
-        <div className={styles.holographicRing}></div>
-      </div>
-      
-      <h3 className={styles.fullName}>Abdus Sayem Rafi</h3>
-      <p className={styles.title}>Diploma In Engineering</p>
-      <p className={styles.field}>Chittagong Polytechnich Institute (CPI)</p>
-      <p className={styles.location}>
-        <i className="fa-sharp fa-solid fa-location-dot"></i>
-        <span style={{ marginLeft: "4px" }}>Chittagong, Bangladesh</span>
-      </p>
-      
-      <div className={styles.socialIcons}>
-        {[
-         { href: "https://www.linkedin.com/in/abdus-sayem-rafi-a01a25270/" , icon: "fa-linkedin"},
-          { href: "https://github.com/mrrafi2", icon: "fa-github" },
-          { href: "https://www.facebook.com/share/15ZTKuVpQk/", icon: "fa-facebook" },
-          { href: "https://x.com/rafi_khan111?t=J0g3Cj3pADckzzebbW9AKA&s=09", icon: "fa-x-twitter" },
-
-        ].map((social, idx) => (
-          <a
-            key={idx}
-            href={social.href}
-            target="_blank"
-            rel="noreferrer"
-            className={styles.socialIconBox}
-          >
-            <i className={`fa-brands ${social.icon}`}></i>
-          </a>
-        ))}
-      </div>
-    </motion.div>
-  );
-};
-
 const About = () => {
   const [isDark, setIsDark] = useState(true);
 
@@ -346,8 +295,7 @@ const duration = 10 + Math.random() * 10;
       <br />
 
       <div className={styles.contentWrapper}>
-        {/* Profile Card */}
-        <ProfileCard isDark={isDark} />
+        
 
         <div className={styles.timeline}>
           <motion.h2 

@@ -1,169 +1,583 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 .codeEditor {
-  width: 550px;
-  max-width: calc(100% - 48px);
-  background: linear-gradient(180deg, rgba(6,8,12,0.86), rgba(12,14,20,0.95));
-  border-radius: 12px;
-  box-shadow: 0 18px 50px rgba(2,8,20,0.6);
-  color: #e6eef6;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.04);
-  display: flex;
-  flex-direction: column;
-  transition: transform 240ms cubic-bezier(.2,.9,.2,1), box-shadow 240ms;
-  margin: 0.5rem;
+  --editor-height-desktop: 500px;
+  --editor-height-tablet: 60vh;
+  --editor-height-mobile: 72vh;
+  --skillrail-width: 220px;
+  --skillrail-height-mobile: 260px;
+
+  --editor-height: var(--editor-height-desktop);
+}
+
+.codeEditor {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
   position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(0, 212, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* expanded/focus mode */
+.codeEditor:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 12px 40px rgba(0, 212, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.backgroundLayers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.glassLayer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 15, 25, 0.9) 0%,
+    rgba(25, 15, 35, 0.85) 50%,
+    rgba(15, 25, 35, 0.9) 100%
+  );
+  backdrop-filter: blur(20px);
+}
+
+.gradientLayer {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 0, 128, 0.05) 0%, transparent 50%);
+  opacity: 0.8;
+}
+
+/* Expanded mode */
 .expandedEditor {
-  width: calc(100% - 32px);
-  max-width: 1100px;
-  transform: translateY(-6px) scale(1.02);
-  z-index: 80;
-  box-shadow: 0 28px 90px rgba(2,8,20,0.72);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.05);
+  width: 95vw;
+  max-width: 1200px;
+  height: 90vh;
+  z-index: 1000;
+  box-shadow: 
+    0 50px 100px rgba(0, 0, 0, 0.6),
+    0 20px 60px rgba(0, 212, 255, 0.2);
 }
 
-/* small copy flash */
+.expandedEditor::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+/* Copy success state */
 .copied {
-  outline: 2px solid rgba(0,200,255,0.12);
-  box-shadow: 0 10px 30px rgba(0,212,255,0.06);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 32px rgba(0, 255, 127, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* header */
+/* Header */
 .editorHeader {
+  position: relative;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
-  gap: 8px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-.editorButtons { display: flex; gap: 6px; align-items: center; }
-.editorBtn {
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
 }
 
-/* right controls */
-.headerRight { display:flex; gap:8px; align-items:center; }
-.copyBtn, .expandBtn {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.04);
-  color: var(--cosmic-white);
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 0.86rem;
-  cursor: pointer;
-}
-
-/* body */
-.editorBody {
+.editorInfo {
   display: flex;
-  gap: 12px;
-  padding: 12px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.editorButtons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.editorBtn {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editorBtn[data-color="red"] {
+  background: linear-gradient(135deg, #ff5f56, #ff3b30);
+  box-shadow: 0 2px 8px rgba(255, 95, 86, 0.4);
+}
+
+.editorBtn[data-color="yellow"] {
+  background: linear-gradient(135deg, #ffbd2e, #ff9500);
+  box-shadow: 0 2px 8px rgba(255, 189, 46, 0.4);
+}
+
+.editorBtn[data-color="green"] {
+  background: linear-gradient(135deg, #27ca3f, #30d158);
+  box-shadow: 0 2px 8px rgba(39, 202, 63, 0.4);
+}
+
+.editorBtn:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filename {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.fileStatus {
+  color: #00ff88;
+  font-size: 0.8rem;
+}
+
+.headerRight {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.copyBtn, .expandBtn {
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  background: rgba(0, 212, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.copyBtn:hover, .expandBtn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+}
+
+.copyBtn.success {
+  background: rgba(0, 255, 127, 0.2);
+  border-color: rgba(0, 255, 127, 0.5);
+  color: #00ff7f;
+}
+
+/* Body */
+.editorBody {
+  position: relative;
+  z-index: 10;
+  height: var(--editor-height);
+  min-height: 0;               
+  display: grid;
+  grid-template-columns: 1fr var(--skillrail-width);
+  gap: 1rem;
+  padding: 1.5rem;
+  align-items: stretch;          
+  overflow: hidden;  
+}
+
+.codeSection {
+   position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: auto;     
+  min-width: 0;       
+  height: 100%;
+  display: block;
+}
+
+.codePre {
+  margin: 0;
+  padding: 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  background: transparent;
+  color: #e6eef6;
+  overflow: auto;
+  max-height: none;
+  white-space: pre;
+   height: 100%;
+     white-space: pre; 
+  font-weight: 400;
+}
+
+.codeLine {
+  display: flex;
+  align-items: center;
+  min-height: 1.6rem;
+  position: relative;
+}
+
+.codeLine:hover {
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.lineNumber {
+  flex-shrink: 0;
+  width: 2.5rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.85rem;
+  text-align: right;
+  margin-right: 1rem;
+  user-select: none;
+}
+
+.lineContent {
+  flex: 1;
+}
+
+/* Syntax highlighting */
+.keyword {
+  color: #8ec6ff;
+  font-weight: 600;
+}
+
+.string {
+  color: #ffd6a5;
+}
+
+.property {
+  color: #c9f29b;
+}
+
+.comment {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+/* Cursor */
+.cursor {
+  color: #00d4ff;
+  font-weight: bold;
+  animation: blink 1s steps(1) infinite;
+  text-shadow: 0 0 8px #00d4ff;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Skills Rail */
+.skillRail {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.skillHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skillIcon {
+  font-size: 1.1rem;
+  color: #00d4ff;
+}
+
+.skillCount {
+  margin-left: auto;
+  background: rgba(0, 212, 255, 0.2);
+  color: #00d4ff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   align-items: flex-start;
 }
 
-/* code area */
-.codePre {
-  flex: 1 1 60%;
-  margin: 0;
-  padding: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(0.9rem, 1.6vw, 1rem);
-  line-height: 1.5;
-  background: transparent;
-  color: #dbe9ff;
-  overflow: auto;
-  max-height: 400px;
-  border-radius: 8px;
-  white-space: pre;
-  overflow-wrap: break-word; 
-  word-break: break-all;
-  max-width: 100%;
-  white-space: pre-wrap;
-}
-
-/* single line wrapper */
-.codeLine { display:block; padding: 0 2px; }
-
-/* cursor */
-.cursor {
-  color: var(--cosmic-blue);
-  font-weight: bold;
-  animation: blink 900ms steps(1) infinite;
-}
-
-@keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
-
-/* token colors (use module classnames) */
-.tokenKeyword { color: #8ec6ff; font-weight:600; }
-.tokenString { color: #ffd6a5; }
-.tokenKey { color: #c9f29b; opacity: 0.95; }
-.tokenNumber { color: #ffb3b3; }
-.tokenPunc { color: rgba(255,255,255,0.45); }
-
-/* skill rail */
-.skillRail {
-  flex: 0 0 200px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 10px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: stretch;
-  min-height: 120px;
-  max-height: 400px;
-  overflow: auto;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
-}
-
-.skillHeader { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
-.skillList { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start; }
-
-/* chip */
 .skillChip {
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.04);
-  color: #fff;
-  border-radius: 999px;
-  font-size: 0.78rem;
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
   cursor: default;
-  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms;
-}
-.skillChip:hover { transform: translateY(-3px) scale(1.03); }
-
-/* active chip highlight (pulsing) */
-.activeChip {
-  background: linear-gradient(90deg, rgba(0,212,255,0.12), rgba(139,92,246,0.08));
-  box-shadow: 0 8px 24px rgba(0,212,255,0.06);
-  transform: translateY(-4px) scale(1.04);
-  border-color: rgba(0,212,255,0.18);
-  animation: pulseChip 1600ms ease-in-out infinite;
-}
-@keyframes pulseChip {
-  0% { transform: translateY(-3px) scale(1.02); box-shadow: 0 6px 18px rgba(0,212,255,0.04); }
-  50% { transform: translateY(-6px) scale(1.06); box-shadow: 0 18px 40px rgba(0,212,255,0.08); }
-  100% { transform: translateY(-3px) scale(1.02); box-shadow: 0 6px 18px rgba(0,212,255,0.04); }
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  overflow: hidden;
 }
 
-/* footer note */
-.editorFooter { padding: 8px 12px; font-size: 0.78rem; color: rgba(255,255,255,0.55); }
-
-@media (max-width: 880px) {
-  .codeEditor { width: calc(100% - 28px); margin: 12px auto; }
-  .editorBody { flex-direction: column; }
-  .skillRail { width: 100%; flex: none; order: 2; max-height: 260px; }
-  .codePre { max-height: 320px; width: 100%; }
+.skillChip:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: rgba(0, 212, 255, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
 }
 
-@media (max-width: 420px) {
-  .codeEditor { border-radius: 8px; padding: 6px; }
-  .editorHeader { padding: 8px; }
-  .codePre { font-size: 0.86rem; max-height: 360px; }
-  .skillChip { font-size: 0.72rem; padding: 6px 8px; }
+.chipGlow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.skillChip:hover .chipGlow {
+  opacity: 1;
+}
+
+/* Footer */
+.editorFooter {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footerLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusIndicator {
+  color: #00ff88;
+  font-size: 0.7rem;
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footerRight {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Custom Scrollbar */
+.codePre::-webkit-scrollbar,
+.skillRail::-webkit-scrollbar {
+  width: 8px;
+}
+
+.codePre::-webkit-scrollbar-track,
+.skillRail::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.codePre::-webkit-scrollbar-thumb,
+.skillRail::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.3);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.codePre::-webkit-scrollbar-thumb:hover,
+.skillRail::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .codeEditor { --editor-height: var(--editor-height-tablet); }
+
+
+ .editorBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: var(--editor-height);
+    padding: 1rem;
+  }
+
+  .codeSection { flex: 1 1 auto; height: auto; overflow: auto; }   
+  .skillRail {
+    order: 2;
+    flex: 0 0 var(--skillrail-height-mobile);
+    height: var(--skillrail-height-mobile);
+    max-height: var(--skillrail-height-mobile);
+    overflow-y: auto;
+  }
+  
+  .expandedEditor {
+    width: 98vw;
+    height: 95vh;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .codePre {
+    white-space: pre;
+    min-width: 0;
+    overflow-x: auto;
+    max-height: 420px;
+  }
+}
+
+@media (max-width: 768px) {
+  .codeEditor {
+    margin: 1rem;
+    border-radius: 12px;
+    
+  }
+  
+  .editorHeader {
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .editorBody {
+    padding: 1rem;
+  }
+  
+ .codePre {
+    white-space: pre-wrap;     
+    word-break: break-word;
+    overflow-x: hidden;        
+    max-width: 300px;      /* keep editor usable on small screens */
+  }
+  
+  .skillRail {
+    padding: 1rem;
+  }
+  
+  .headerRight {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+    .codeEditor { --editor-height: var(--editor-height-mobile); --skillrail-height-mobile: 140px; max-width: 310px;}
+
+  .editorHeader {
+    padding: 0.75rem;
+  }
+  
+  .editorBody {
+    padding: 0.75rem;
+  }
+  
+  .codePre {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+    max-height: 300px;
+  }
+
+  
+  .skillChip {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .copyBtn, .expandBtn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .lineNumber {
+    width: 2rem;
+    margin-right: 0.5rem;
+  }
+
+  .editorHeader { padding: 0.5rem; gap: 0.6rem; }
+  .editorBody { padding: 0.5rem; gap: 0.6rem; }
+  .codePre { padding: 0.6rem; max-height: 360px; }
+  .skillRail { padding: 0.75rem; max-height: 200px; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+  
+  .codeEditor:hover {
+    transform: none;
+  }
+  
+  .skillChip:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .codeEditor {
+    border-width: 2px;
+  }
+  
+  .keyword {
+    color: #ffffff;
+    background: #0066cc;
+    padding: 0 2px;
+  }
+  
+  .string {
+    color: #000000;
+    background: #ffff00;
+    padding: 0 2px;
+  }
 }

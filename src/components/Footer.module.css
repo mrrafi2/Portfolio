@@ -1,46 +1,143 @@
 .footer {
-    background: linear-gradient(270deg, #333, #555, #333);
-    background-size: 400% 400%;
-    color: #fff;
-    padding: 2rem;
+  background: #fdfaf5;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  border-top: 6px double #1a1a1a;
+}
+
+.paper {
+  max-width: 900px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: #fdfaf5;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  font-family: "Courier New", Courier, monospace;
+  position: relative;
+}
+
+.paper::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 1px dashed rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.headerLine {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #1a1a1a;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0.5rem 0;
+}
+
+.open {
+  color: #b34d2e;
+  font-weight: 700;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.email {
+  font-weight: 700;
+  text-decoration: none;
+  color: #1a1a1a;
+  display: inline-block;
+  margin-bottom: 1rem;
+  border-bottom: 2px dotted #1a1a1a;
+  transition: color 0.3s ease;
+}
+
+.email:hover {
+  color: #b34d2e;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.resume {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #1a1a1a;
+  background: transparent;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.resume:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.iconLink {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #1a1a1a;
+  border-radius: 8px;
+  color: #1a1a1a;
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.iconLink:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #b34d2e;
+}
+
+.iconLink svg {
+  width: 18px;
+  height: 18px;
+}
+
+.copy {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.tech {
+  color: #b34d2e;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .footer{
     text-align: center;
-    animation: gradientFooter 8s ease infinite;
   }
-  
-  @keyframes gradientFooter {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  .headerLine {
+    flex-direction: column;
+    gap: 4px;
   }
-  
-  .content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .socialLinks {
-    margin-top: 1rem;
-    display: flex;
+
+  .actions {
     justify-content: center;
-    gap: 1rem;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 10px;
   }
-  
-  .socialLinks a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .socialLinks a:hover {
-    color: #ffeb3b;
-    transform: scale(1.1);
-  }
-  
-  /* Responsive styling */
-  @media (max-width: 600px) {
-    .socialLinks {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-  }
-  
+}

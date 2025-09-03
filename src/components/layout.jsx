@@ -6,11 +6,12 @@ export default function Layout ({children} ) {
         <>
         <Nav/>
         
-        <div style={{marginTop:'6rem'
+        <div style={{marginTop:'5rem'
         }}>
              {children}
         </div>
-       
+
+     
         </>
     )
 }

@@ -2,7 +2,7 @@ import Hero from './Hero';
 import About from './About';
 import Project from './Projects';
 import Contact from './Contact';
-import WhyMe from './whyMe';
+import Footer from './footer';
 export default function Home() {
   return (
     <div>
@@ -10,8 +10,9 @@ export default function Home() {
       <Hero />
       <About />
       <Project/>
-      <WhyMe/>
+  
      <Contact/>
+     <Footer/>
     
     </div> 
   );

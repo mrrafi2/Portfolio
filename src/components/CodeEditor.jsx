@@ -18,12 +18,49 @@ const DEFAULT_LINES = [
   "// Building tomorrow's web today..."
 ];
 
+// Robust highlighter: tokenize strings and comments first to avoid nested replacements
 function highlightLine(line) {
   const esc = (s) =>
     s.replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  return esc(line);
+     .replace(/</g, "&lt;")
+     .replace(/>/g, "&gt;");
+
+  // start escaped so tags we inject are real HTML
+  let text = esc(line);
+
+  // Tokenize comments
+  const commentTokens = [];
+  text = text.replace(/(\/\/.*$)/, (m) => {
+    const html = `<span class="${styles.comment}">${m}</span>`;
+    commentTokens.push(html);
+    return `@@COMMENT_${commentTokens.length - 1}@@`;
+  });
+
+  // Tokenize strings (single, double, backtick)
+  const stringTokens = [];
+  text = text.replace(/(['"`])((?:(?!\1)[^\\]|\\.)*)(\1)/g, (m, p1, p2, p3) => {
+    const html = `<span class="${styles.string}">${p1}${p2}${p3}</span>`;
+    stringTokens.push(html);
+    return `@@STRING_${stringTokens.length - 1}@@`;
+  });
+
+  // Keywords (word boundaries to avoid partial matches)
+  const kwRegex = /\b(const|let|var|function|return|if|else|for|while|class|extends|import|export|from|async|await|new)\b/g;
+  text = text.replace(kwRegex, `<span class="${styles.keyword}">$1</span>`);
+
+  // Object keys: match identifier before colon (preserve leading whitespace / separators)
+  // Use a conservative pattern to avoid matching inside injected tokens
+  text = text.replace(/(^|\s|,)([A-Za-z_][$\w]*)(\s*:)/g, (m, g1, g2, g3) => {
+    return `${g1}<span class="${styles.property}">${g2}</span>${g3}`;
+  });
+
+  // Restore string tokens
+  text = text.replace(/@@STRING_(\d+)@@/g, (m, idx) => stringTokens[Number(idx)] || '');
+
+  // Restore comment tokens
+  text = text.replace(/@@COMMENT_(\d+)@@/g, (m, idx) => commentTokens[Number(idx)] || '');
+
+  return text;
 }
 
 // extract skills from quotes
@@ -45,6 +82,7 @@ export default function CodeEditor({ isDark = true, lines = DEFAULT_LINES }) {
   const [charIndex, setCharIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const [revealedSkills, setRevealedSkills] = useState([]); 
+  const [copied, setCopied] = useState(false);
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: false });
   const containerRef = useRef(null);
 
@@ -54,7 +92,7 @@ export default function CodeEditor({ isDark = true, lines = DEFAULT_LINES }) {
     if (!inView) return;
     let mounted = true;
     let timerId = null;
-    const speed = 20;
+    const speed = 25;
 
     const stateRef = { line: lineIndex, char: charIndex };
 
@@ -89,7 +127,7 @@ export default function CodeEditor({ isDark = true, lines = DEFAULT_LINES }) {
           setLineIndex(stateRef.line);
           stateRef.char = 0;
           setCharIndex(0);
-          timerId = setTimeout(step, speed + 40);
+          timerId = setTimeout(step, speed + 50);
         }
       } else {
         // reset loop
@@ -101,12 +139,12 @@ export default function CodeEditor({ isDark = true, lines = DEFAULT_LINES }) {
           stateRef.char = 0;
           setLineIndex(0);
           setCharIndex(0);
-          timerId = setTimeout(step, 800);
-        }, 6500);
+          timerId = setTimeout(step, 1000);
+        }, 7000);
       }
     };
 
-    timerId = setTimeout(step, 100);
+    timerId = setTimeout(step, 200);
 
     return () => {
       mounted = false;
@@ -115,64 +153,138 @@ export default function CodeEditor({ isDark = true, lines = DEFAULT_LINES }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, lines]);
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(lines.join('\n'));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.warn('Copy failed:', err);
+    }
+  };
+
   const renderedCodeHtml = currentCode
     .split('\n')
     .map((ln, idx, arr) => {
       const isLast = idx === arr.length - 1;
-      return `<div data-line="${idx}">${highlightLine(ln)}${
-        isLast ? `<span class="${styles.cursor}">|</span>` : ''
-      }</div>`;
+      const lineNumber = idx + 1;
+      return `<div class="${styles.codeLine}" data-line="${idx}">
+        <span class="${styles.lineNumber}">${lineNumber.toString().padStart(2, ' ')}</span>
+        <span class="${styles.lineContent}">${highlightLine(ln)}${
+          isLast ? `<span class="${styles.cursor}">|</span>` : ''
+        }</span>
+      </div>`;
     })
     .join('');
 
   return (
-    <div
+    <motion.div
       ref={containerRef}
-      className={`${styles.codeEditor} ${isDark ? styles.dark : styles.light} ${expanded ? styles.expandedEditor : ''}`}
+      className={`${styles.codeEditor} ${isDark ? styles.dark : styles.light} ${expanded ? styles.expandedEditor : ''} ${copied ? styles.copied : ''}`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       aria-live="polite"
     >
+      {/* Glassmorphism background layers */}
+      <div className={styles.backgroundLayers}>
+        <div className={styles.glassLayer}></div>
+        <div className={styles.gradientLayer}></div>
+      </div>
+
       <div className={styles.editorHeader}>
-        <div className={styles.editorButtons}>
-          <span className={styles.editorBtn} style={{ backgroundColor: '#ff5f56' }} />
-          <span className={styles.editorBtn} style={{ backgroundColor: '#ffbd2e' }} />
-          <span className={styles.editorBtn} style={{ backgroundColor: '#27ca3f' }} />
+        <div className={styles.editorInfo}>
+          <div className={styles.editorButtons}>
+            <span className={styles.editorBtn} data-color="red" />
+            <span className={styles.editorBtn} data-color="yellow" />
+            <span className={styles.editorBtn} data-color="green" />
+          </div>
+          <div className={styles.fileInfo}>
+            <span className={styles.filename}>skills.js</span>
+            <span className={styles.fileStatus}>●</span>
+          </div>
         </div>
+
         <div className={styles.headerRight}>
-          <button className={styles.copyBtn} onClick={() => navigator.clipboard.writeText(lines.join('\n'))}>Copy</button>
-          <button className={styles.expandBtn} onClick={() => setExpanded((v) => !v)} aria-pressed={expanded}>
-            {expanded ? 'Exit' : 'Focus'}
-          </button>
+          <motion.button 
+            className={`${styles.copyBtn} ${copied ? styles.success : ''}`}
+            onClick={handleCopy}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {copied ? '✓ Copied' : 'Copy'}
+          </motion.button>
+          
         </div>
       </div>
 
       <div ref={ref} className={styles.editorBody}>
-        <pre
-          className={styles.codePre}
-          dangerouslySetInnerHTML={{ __html: renderedCodeHtml }}
-        />
-        <div className={styles.skillRail}>
-          <div className={styles.skillHeader}>Skills</div>
+        <div className={styles.codeSection}>
+
+          {/* IMPORTANT: set monospace + horizontal scrolling to prevent overlap */}
+          <pre
+            className={styles.codePre}
+            style={{
+              whiteSpace: 'pre',
+              fontFamily: "'JetBrains Mono', 'Courier New', monospace",
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              paddingBottom: 8
+            }}
+            dangerouslySetInnerHTML={{ __html: renderedCodeHtml }}
+          />
+        </div>
+
+        <motion.div 
+          className={styles.skillRail}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <div className={styles.skillHeader}>
+            <span className={styles.skillIcon}>⚡</span>
+            <span>Skills Detected</span>
+            <span className={styles.skillCount}>{revealedSkills.length}</span>
+          </div>
           <div className={styles.skillList}>
             <AnimatePresence>
-              {revealedSkills.map((s, i) => (
+              {revealedSkills.map((skill, i) => (
                 <motion.div
-                  key={s + i}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
+                  key={skill + i}
+                  initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: i * 0.1,
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20
+                  }}
+                  whileHover={{ scale: 1.05, y: -2 }}
                 >
-                  <span className={styles.skillChip}>{s}</span>
+                  <span className={styles.skillChip}>
+                    {skill}
+                    <span className={styles.chipGlow}></span>
+                  </span>
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       <div className={styles.editorFooter}>
-        <small>Tip: use Focus to expand the editor for presentations.</small>
+        <div className={styles.footerLeft}>
+          <span className={styles.statusIndicator}>●</span>
+          <span>JavaScript</span>
+          <span className={styles.separator}>|</span>
+          <span>UTF-8</span>
+        </div>
+        <div className={styles.footerRight}>
+          <span>Ln {lineIndex + 1}, Col {charIndex + 1}</span>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
