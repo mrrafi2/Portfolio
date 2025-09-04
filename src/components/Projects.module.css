@@ -90,14 +90,6 @@
   overflow: hidden;
 }
 
-/* canvas full-fill */
-.cosmicCanvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-  will-change: transform; 
-}
-
 
 .contentWrapper {
   position: relative;
@@ -376,6 +368,13 @@
   
   .card {
     height: 380px;
+  }
+
+   .cardInner {
+     transform: none !important; 
+  }
+  .projectImage { 
+    transform: none !important; 
   }
   
   .heading {
