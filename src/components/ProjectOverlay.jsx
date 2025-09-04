@@ -84,7 +84,7 @@ export default function ProjectOverlay({ project = {}, onClose }) {
 
    { title: 'Challenges', content: asArray(project.challenges, ['Challenges not specified.']), images: Array.isArray(project.gallery) ? project.gallery.slice(3,4) : [], label: 'Challenges tackled' } ,
 
-    { title: 'Problems & Solutions', content: asArray(project.problemSolve, ['Problems not specified.']), images: Array.isArray(project.gallery) ? project.gallery.slice(3,4) : [], label: 'Solutions provided' } ,
+    { title: 'Problems & Solutions', content: asArray(project.problemSolve, ['Problems not specified.']), images: Array.isArray(project.gallery) ? project.gallery.slice(3,4) : [], label: 'Solutions' } ,
 
     { title: 'Future Plans', content: asArray(project.future, ['Future developments not specified.']), images: Array.isArray(project.gallery) ? project.gallery.slice(5) : [], label: 'Roadmap' }
   ];
@@ -109,11 +109,13 @@ export default function ProjectOverlay({ project = {}, onClose }) {
 
       {state.lightboxImg && (
         <div className={styles.lightbox} onClick={() => dispatch({ type: 'LIGHTBOX', payload: null })} role="button" tabIndex={0} aria-label="Close image">
+
           <img src={state.lightboxImg} alt={`${project.title} preview`} className={styles.lightboxImage} onClick={(e) => e.stopPropagation()} />
         </div>
       )}
 
       <div className={styles.content} role="dialog" aria-modal="true" aria-label={project.title || 'Project details'}>
+
         <button ref={closeButtonRef} className={styles.closeButton} onClick={onClose} aria-label="Close project overlay">×</button>
 
         <header className={styles.header}>

@@ -41,7 +41,7 @@
 /* ------------------ */
 .progressWrap {
   position: fixed;
-  top: 14px;
+  top: 20px;
   left: 8%;
   right: 8%;
   height: 6px;
@@ -437,6 +437,42 @@
 /* Responsive         */
 /* ------------------ */
 @media (max-width: 900px) {
+  .header {
+    position: static;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 10px 12px;
+  }
+
+  /* Keep progress bar fixed */
+  .progressWrap {
+    left: 6%;
+    right: 6%;
+    top: 10px;
+    position: fixed; /* ensure it stays fixed */
+  }
+
+  /* Keep close button fixed in the corner */
+  .closeButton {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+  }
+
+  /* Narrower side buttons */
+  .sideButton {
+    font-size: 13px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    max-width: 150px; /* shrink width */
+    text-align: center;
+  }
+
+  .sideNav.row .sideButton {
+    flex: 1; 
+    max-width: none;
+  }
   .mainGrid {
     grid-template-columns: 1fr;
   }
@@ -446,14 +482,21 @@
   .scrollArea {
     max-height: 58vh;
   }
-  .progressWrap {
-    left: 6%;
-    right: 6%;
-    top: 12px;
+
+}
+
+@media (max-width: 770px) {
+  .content{
+    animation: none !important;
   }
 }
 
 @media (max-width: 480px) {
+
+  .header {
+  margin-top: 30px;
+  }
+  
   .content {
     border-radius: 12px;
   }
@@ -463,12 +506,21 @@
   .progressWrap {
     left: 4%;
     right: 4%;
-    top: 10px;
+    top: 8px;
   }
   .closeButton {
-    top: 6px;
+    top: 7px;
     right: 7px;
   }
+
+  .sideButton {
+    font-size: 12px;
+    padding: 5px 7px;
+    border-radius: 7px;
+    max-width: 130px;
+    justify-content: center;
+  }
+
 }
 
 /* ------------------ */
