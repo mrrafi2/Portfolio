@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sun, Moon, Download, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
+import { Sun, Moon, FileText, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
 import styles from './Hero.module.css';
 import ProfileImg from "../assets/profile-pic-org.jpg";
 
@@ -121,78 +121,9 @@ const handleProfileTouchStart = (e) => {
 
 
   
-const handleResumeDownload = async () => {
-  
-  const resumeUrl = new URL('/AS_Rafi_Resume_Main.pdf', import.meta.env.BASE_URL).href;
-
-  try {
-    let headRes;
-    try {
-      headRes = await fetch(resumeUrl, { method: 'HEAD' });
-    } catch (err) {
-      console.warn('HEAD request failed (might be blocked). Falling back to GET.', err);
-      headRes = null;
-    }
-
-    const contentType = headRes?.headers?.get?.('content-type') ?? '';
-
-
-    if (headRes && (!headRes.ok || !/pdf/i.test(contentType))) {
-      console.error('HEAD check: server returned non-PDF or error:', headRes.status, contentType);
-      alert('Resume not found as PDF on the server. Opening the path so you can inspect what was returned.');
-      window.open(resumeUrl, '_blank', 'noopener');
-      return;
-    }
-
-    
-    if (headRes && headRes.ok && /pdf/i.test(contentType)) {
-      const a = document.createElement('a');
-      a.href = resumeUrl;
-      a.download = 'Rafi_Resume.pdf';
-      a.rel = 'noopener';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      return;
-    }
-
-    // If HEAD was unavailable (or inconclusive), fetch the resource and check Content-Type
-    const getRes = await fetch(resumeUrl);
-    const ct = getRes.headers.get('content-type') || '';
-
-    if (!getRes.ok) {
-      console.error('GET request failed:', getRes.status, ct);
-      alert('Failed to fetch resume from server. Open the resume URL in a new tab to debug.');
-      window.open(resumeUrl, '_blank', 'noopener');
-      return;
-    }
-
-    if (!/pdf/i.test(ct)) {
-    
-      console.error('GET returned non-PDF content-type:', ct);
-      alert('Server returned non-PDF content. Opening the URL so you can inspect what the server returned.');
-      window.open(resumeUrl, '_blank', 'noopener');
-      return;
-    }
-
-    
-    const blob = await getRes.blob();
-    const blobUrl = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = blobUrl;
-    a.download = 'Rafi_Resume.pdf';
-    a.rel = 'noopener';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    // cleanup
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
-  } catch (error) {
-    console.error('Unexpected error while downloading resume:', error);
-    
-    window.open(resumeUrl, '_blank', 'noopener');
-  }
+const handleViewResume = () => {
+  const resumeUrl = new URL('AS_Rafi_Resume_Main.pdf', document.baseURI).href;
+  window.open(resumeUrl, '_blank', 'noopener,noreferrer');
 };
 
 const handleScrollToProjects = () => {
@@ -208,6 +139,7 @@ if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   
   return (
+
     <div className={`${styles.heroContainer} ${isDark ? styles.dark : ''}`} data-theme={isDark ? 'dark' : 'light'}>
 
       {/* Cosmic background and decorative blobs */}
@@ -263,26 +195,27 @@ if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             {/* Action Controls */}
             <div className={styles.actionGrid}>
-              <button className={styles.primaryAction} onClick={handleResumeDownload} aria-label="Download resume">
-                <Download size={18} />
-                <span>Download Resume</span>
-              </button>
 
-            
+            <button className={styles.primaryAction} onClick={handleViewResume} aria-label="View resume">
+              
+             <FileText size={18} />
 
-              <nav className={styles.socialNav} aria-label="social links">
-                <a href="https://github.com/mrrafi2" className={styles.socialLink} target='_blank' rel='noreferrer'>
-                  <Github size={18} />
-                </a>
-                <a href="https://www.linkedin.com/in/abdus-sayem-rafi-a01a25270/" className={styles.socialLink} target='_blank' rel='noreferrer'>
-                  <Linkedin size={18} />
-                </a>
-                <a href="mailto:rafibd2290@gmail.com" className={styles.socialLink} target='_blank' rel='noreferrer'>
-                  <Mail size={18} />
-                </a>
-              </nav>
-            </div>
-        
+               <span>View Resume</span>
+            </button>
+
+  <nav className={styles.socialNav} aria-label="social links">
+    <a href="https://github.com/mrrafi2" className={styles.socialLink} target='_blank' rel='noreferrer'>
+      <Github size={18} />
+    </a>
+    <a href="https://www.linkedin.com/in/abdus-sayem-rafi-a01a25270/" className={styles.socialLink} target='_blank' rel='noreferrer'>
+      <Linkedin size={18} />
+    </a>
+    <a href="mailto:rafibd2290@gmail.com" className={styles.socialLink} target='_blank' rel='noreferrer'>
+      <Mail size={18} />
+    </a>
+  </nav>
+</div>
+
           </section>
 
           {/*  Visual / Profile with orbiters */}
