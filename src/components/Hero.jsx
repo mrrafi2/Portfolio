@@ -119,13 +119,81 @@ const handleProfileTouchStart = (e) => {
     return () => clearTimeout(timeout);
   }, [charIndex, typing, phraseIndex]);
 
-  const handleResumeDownload = () => {
-    const resumeUrl = '/AS_Rafi_Resume_Main.pdf';
-    const link = document.createElement('a');
-    link.href = resumeUrl;
-    link.download = 'Rafi_Resume.pdf';
-    link.click();
-  };
+
+  
+const handleResumeDownload = async () => {
+  
+  const resumeUrl = new URL('/AS_Rafi_Resume_Main.pdf', import.meta.env.BASE_URL).href;
+
+  try {
+    let headRes;
+    try {
+      headRes = await fetch(resumeUrl, { method: 'HEAD' });
+    } catch (err) {
+      console.warn('HEAD request failed (might be blocked). Falling back to GET.', err);
+      headRes = null;
+    }
+
+    const contentType = headRes?.headers?.get?.('content-type') ?? '';
+
+
+    if (headRes && (!headRes.ok || !/pdf/i.test(contentType))) {
+      console.error('HEAD check: server returned non-PDF or error:', headRes.status, contentType);
+      alert('Resume not found as PDF on the server. Opening the path so you can inspect what was returned.');
+      window.open(resumeUrl, '_blank', 'noopener');
+      return;
+    }
+
+    
+    if (headRes && headRes.ok && /pdf/i.test(contentType)) {
+      const a = document.createElement('a');
+      a.href = resumeUrl;
+      a.download = 'Rafi_Resume.pdf';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      return;
+    }
+
+    // If HEAD was unavailable (or inconclusive), fetch the resource and check Content-Type
+    const getRes = await fetch(resumeUrl);
+    const ct = getRes.headers.get('content-type') || '';
+
+    if (!getRes.ok) {
+      console.error('GET request failed:', getRes.status, ct);
+      alert('Failed to fetch resume from server. Open the resume URL in a new tab to debug.');
+      window.open(resumeUrl, '_blank', 'noopener');
+      return;
+    }
+
+    if (!/pdf/i.test(ct)) {
+    
+      console.error('GET returned non-PDF content-type:', ct);
+      alert('Server returned non-PDF content. Opening the URL so you can inspect what the server returned.');
+      window.open(resumeUrl, '_blank', 'noopener');
+      return;
+    }
+
+    
+    const blob = await getRes.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = 'Rafi_Resume.pdf';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    // cleanup
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 15000);
+  } catch (error) {
+    console.error('Unexpected error while downloading resume:', error);
+    
+    window.open(resumeUrl, '_blank', 'noopener');
+  }
+};
 
 const handleScrollToProjects = () => {
 const target = document.querySelector('#projects');
