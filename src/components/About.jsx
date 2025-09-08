@@ -3,7 +3,6 @@ import React, { useState, useRef, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styles from './About.module.css';
-import profile from "../assets/profile.jpg";
 import timelineTexts from '../data/timeline.json';
 import CodeEditor from './CodeEditor';
 
