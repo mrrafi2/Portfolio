@@ -2,25 +2,18 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import styles from './Projects.module.css';
 import ProjectOverlay from './ProjectOverlay';
 import projectDataRaw from '../data/projects.json';
-import FeatureChips from './featureChip';
-
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 
 
 
-
-
-
-
 const ProjectCard = ({ project, index, onClick }) => {
+
   const cardRef = useRef(null);
   const rafRef = useRef(null);
 
-  // targets (updated by pointer events)
   const target = useRef({ rx: 0, ry: 0, sx: 1, ix: 0, iy: 0 });
-  // current values (animated toward targets)
   const current = useRef({ rx: 0, ry: 0, sx: 1, ix: 0, iy: 0 });
 
   const [isHovered, setIsHovered] = useState(false);
@@ -29,11 +22,11 @@ const ProjectCard = ({ project, index, onClick }) => {
     let lastTime = performance.now();
 
     const tick = (now) => {
-      const dt = Math.min(32, now - lastTime); // clamp dt to avoid huge jumps
+      const dt = Math.min(32, now - lastTime); 
       lastTime = now;
 
-      // tuning: ease factor (higher => snappier), use exponential smoothing
-      const ease = 1 - Math.pow(0.001, dt / (16.67 * 6)); // ~damping feel; tweak multiplier "6" for stiffer/softer
+      // easing factor, tweak for stiffness: larger = stiffer
+      const ease = 1 - Math.pow(0.001, dt / (16.67 * 6)); 
 
       // interpolate each property
       current.current.rx = lerp(current.current.rx, target.current.rx, ease);
@@ -61,7 +54,7 @@ const ProjectCard = ({ project, index, onClick }) => {
     };
   }, []);
 
-  // pointer handler: only update target values (no layout/paint heavy work)
+  
   const handlePointerMove = (e) => {
     const el = cardRef.current;
     if (!el) return;
@@ -144,7 +137,6 @@ const ProjectCard = ({ project, index, onClick }) => {
         <div className={styles.cardContent}>
           <h3 className={styles.projectTitle}>{project.title}</h3>
 
-  <FeatureChips Keyfeature={project.Keyfeature} visibleCount={4} autoplay={false}/>
 
           <div className={styles.cardFooter}>
             <button
