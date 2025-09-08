@@ -144,7 +144,7 @@ const ProjectCard = ({ project, index, onClick }) => {
         <div className={styles.cardContent}>
           <h3 className={styles.projectTitle}>{project.title}</h3>
 
-  <FeatureChips Keyfeature={project.Keyfeature} maxVisible={5} />
+  <FeatureChips Keyfeature={project.Keyfeature} visibleCount={4} autoplay={false}/>
 
           <div className={styles.cardFooter}>
             <button
