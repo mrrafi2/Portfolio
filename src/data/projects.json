@@ -3,7 +3,14 @@
     "id": 1,
     "title": "Dynamic, gamified modern Quiz app",
     "previewLink":"https://quezzer-rp.vercel.app/",
-    "description": "Nov 2023 - Feb 2024",
+    "Keyfeature": [
+      "Label based",
+    "Scoring & Results",
+      "Leaderboard",
+  "Timers",
+  "Fair play",
+    "Admin panel"
+    ],
     "type": "Web App",
 
      
@@ -80,7 +87,16 @@
     "id" : 2,
     "title" : "Real-time full featured Blogging platform",
   "previewLink": "https://brainiac-lime.vercel.app/",
-    "description" : "Mar 2024 - Jul 2024" ,
+   "Keyfeature": [
+    "Secure auth",
+    "Reading history",
+    "Trending feeds",
+    "Bookmarks",
+    "Rich editor",
+    "Comment & share",
+    "Offline caching",
+    "Autosave"
+  ],
     "type" : "Web App",
 
    "discovery": [
@@ -170,7 +186,15 @@
     "id": 3,
     "title": "Electrifying Neon-themed E-commerce Experience",
     "previewLink": "https://neon-cart.vercel.app/",
-    "description": "Jan 2025 - Apr 2025",
+    "Keyfeature": [
+      "Secure auth",
+    "Category explorer",
+    "Persistent cart",
+    "Seller onboarding",
+    "Product listing",
+    "Reviews & star ratings",
+    "Order management"
+    ],
     "type": "E-commerce",
 
     
@@ -259,7 +283,14 @@
     "id": 4,
     "title":"Complete Real-time chat messenger",
     "previewLink": "https://quiver-chat.vercel.app/",
-    "description": "Jun 2025 - Present",
+    "Keyfeature": [
+      "Real-time messaging",
+      "Typing indicators",
+      "Media sharing",
+      "Voice messages",
+      "Sketch canvas",
+      "Reactions"
+    ],
     "type": "Mobile Web App",
 
   "discovery": [
@@ -334,7 +365,14 @@
    "id": 5,
   "title": "Nebula – AI-Powered Social Media UI",
   "previewLink": "https://nebula-kappa-two.vercel.app/",
-  "description": "Jul 2025 (v1.0)",
+  "Keyfeature": [
+    "CosmicUI",
+  "Interactive",
+    "Animated UI",
+    "Accessible",
+    "Responsive",
+    "Copyable code"
+  ],
   "type": "UI Design",
 
   

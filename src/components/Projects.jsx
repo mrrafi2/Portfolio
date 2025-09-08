@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import styles from './Projects.module.css';
 import ProjectOverlay from './ProjectOverlay';
 import projectDataRaw from '../data/projects.json';
+import FeatureChips from './featureChip';
 
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -9,11 +10,7 @@ const lerp = (a, b, t) => a + (b - a) * t;
 
 
 
-// cosmic bg component--- 
 
-
-
-//----------------------------------------------------------------------
 
 
 
@@ -146,7 +143,8 @@ const ProjectCard = ({ project, index, onClick }) => {
 
         <div className={styles.cardContent}>
           <h3 className={styles.projectTitle}>{project.title}</h3>
-          <p className={styles.projectDesc}>{project.description}</p>
+
+  <FeatureChips Keyfeature={project.Keyfeature} maxVisible={5} />
 
           <div className={styles.cardFooter}>
             <button

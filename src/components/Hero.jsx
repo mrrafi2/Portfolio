@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sun, Moon, FileText, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
 import styles from './Hero.module.css';
-import ProfileImg from "../assets/profile-pic-org.jpg";
+import ProfileImg from "../assets/Profile.png";
 
 const phrases = ["Web Application Developer", "UI/UX Designer", "Creative Technologist", "Problem Solver"];
 
@@ -197,7 +197,7 @@ if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             <div className={styles.actionGrid}>
 
             <button className={styles.primaryAction} onClick={handleViewResume} aria-label="View resume">
-              
+
              <FileText size={18} />
 
                <span>View Resume</span>
