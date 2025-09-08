@@ -110,7 +110,7 @@ export default function FeatureChips({
             ["--visibleCount"]: visibleCount,
           }}
         >
-          {features.map((f, i) => (
+          {Keyfeature.map((f, i) => (
             <li key={i} className={styles.chip} title={f} aria-label={f}>
               <span className={styles.icon} aria-hidden>★</span>
               <span className={styles.text}>{f}</span>
