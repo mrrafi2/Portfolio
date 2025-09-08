@@ -3,14 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./FeatureChips.module.css";
 
 export default function FeatureChips({
-  features = [],
+  Keyfeature = [],
   visibleCount = 4,
   autoplay = false,
   autoplayInterval = 3500,
 }) {
-  if (!features || features.length === 0) return null;
+  if (!Keyfeature || Keyfeature.length === 0) return null;
 
-  const total = features.length;
+  const total = Keyfeature.length;
   const maxIndex = Math.max(0, total - visibleCount);
   const [index, setIndex] = useState(0);
   const trackRef = useRef(null);
